@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="css/reset.css"></script>
+
+    <style>
+        body {
+          background-color: #22bbee;
+        }
+
+
+        input, select {
+          width: 100%;
+          padding: 7px 20px;
+          margin: px 0;
+          display: inline-block;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          box-sizing: border-box;
+        }
+        
+        button {
+          width: 50%;
+          color: white;
+          padding: 14px 20px;
+          margin: 70px 0;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          float: left;
+        }
+        
+        
+        div {
+          border-radius: 5px;
+        }
+
+        label {
+            padding-top: 25px;
+        }
+
+        h2 {
+          margin-top: 50px;
+          color: white;
+        }
+
+        </style>
+
+
+</head>
+<body>
+
+    
+    <div>
+        <h2 style="text-align: center; font-size: x-large;"><strong>사원 등록</strong></h2>
+
+        <form action="home.html" class="col-sm-10 col-ms-8 col-lg-6">
+            <label>* 사번</label>
+            <input type="text" id="epNum" name="epNum">
+            
+            <label>* 이름</label>
+            <input type="text" id="name" name="name">
+
+            <label>* 비밀번호</label>
+            <input type="password" id="pw" name="pw">
+
+            <label>* 비밀번호 확인</label>
+            <input type="password" id="pwCheck" name="pwCheck">
+
+            <label for="workArea">*지역</label>
+            <select id="workArea" name="workArea">
+                <option value="seoul">서울</option>
+                <option value="gwangju">광주</option>
+                <option value="daegu">대구</option>
+                <option value="daejeon">대전</option>
+                <option value="pusan">부산</option>
+            </select>
+        
+            <button type="button" class="btn btn-default" onclick="location.href='home.html'">로그인</button>
+            <button type="submit" class="btn btn-primary">등록</button>
+        </form>
+    </div>
+    
+</body>
+</html>

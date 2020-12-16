@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+        
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="css/reset.css"></script>
+    <script src="css/style.css"></script>
+
+    <style>
+        .navbar {
+            background-color: #22bbee;
+            border: 1px solid #22bbee;
+            color: white;
+        }
+
+       
+        .dropdown-toggle a{
+            color: white;
+        }
+
+        .dropdown-menu li {
+            color: white;
+        }
+
+        table
+        , td
+        , th {
+            border: 1px solid #777777;
+            padding: 5px;
+            margin: 20px;
+            text-align: center;
+        }
+
+        .navbar-nav :hover {
+            background-color: black;
+        }
+
+    </style>
+
+</head>
+<body>
+
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="map.html" style="color: white;">SalesMap</a>
+          </div>
+          <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+              <li><a href="mywork.html"><span style="color: white;">Mywork</span></a></li>
+              <li><a href="myinfo.html"><span style="color: white;">MyInfo</span></a></li>
+              <li><a href="home.html"><span style="color: white;">logout</span></a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+    <div>
+        <h2>My Work</h2>
+        <div>
+            <select id="workDate" name="workDate">
+                <option value="workDate">2020-12-01</option>
+                <option value="workDate">2020-11-30</option>
+                <option value="workDate">2020-11-29</option>
+            </select>
+            <span>영업수 : 20개</span>
+        </div>
+
+        <hr/>
+        
+        <table>
+            <tr>
+                <th>영업일</th>
+                <th>영업장</th>
+                <th>영업 삭제</th>
+            </tr>
+            <tr>
+                <td>2020-12-01</td>
+                <td style="width: 55%;">이츠이츠</td>
+                <td><button type="submit" class="btn btn-danger btn-sm" value="x">x</button></td>
+            </tr>
+        </table>
+    </div>
+    
+</body>
+</html>

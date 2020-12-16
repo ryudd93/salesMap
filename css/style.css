@@ -1,0 +1,16 @@
+/* header */
+
+.navbar {
+    background-color: #22bbee;
+    border: 1px solid #22bbee;
+    color: white;
+}
+
+
+.dropdown-toggle a{
+    color: white;
+}
+
+.dropdown-menu li {
+    color: white;
+}
