@@ -28,16 +28,36 @@
         .dropdown-menu li {
             color: white;
         }
+        
+        table {
+            width: 100%;
+        }
+
 
         table
         , td
         , th {
             border: 1px solid #777777;
             padding: 5px;
-            margin: 20px;
             text-align: center;
         }
 
+        .main {
+            margin: 20px;
+        }
+        
+        .infoForm {
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .infoForm .left {
+            float: left;
+        }
+
+        .infoForm button {
+            float: right;
+        }
         
 
         
@@ -60,38 +80,48 @@
           </div>
           <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-              <li><a href="mywork.html"><span style="color: white;">Mywork</span></a></li>
-              <li><a href="myinfo.html"><span style="color: white;">MyInfo</span></a></li>
+              <li><a href="mywork.html"><span style="color: white;">My Work</span></a></li>
+              <li><a href="myinfo.html"><span style="color: white;">My Info</span></a></li>
               <li><a href="home.html"><span style="color: white;">logout</span></a></li>
             </ul>
           </div>
         </div>
       </nav>
 
-    <h2>My Info</h2>
+      
+    <div class="main">
+        <h2>My Info</h2>
 
-    <div>
-        <p>이름</p>
-        <p>지역</p>
+        <div class="infoForm">
+            <div class="left">
+                <p>이름</p>
+                <p>팀</p>
+            </div>
+            <button type="button" class="btn btn-primary">정보수정</button>
+        </div>
 
         <hr/>
         
         <table>
             <tr>
                 <th>영업일</th>
-                <th>영업수</th>
+                <th>컨택</th>
+                <th>소싱</th> 
             </tr>
             <tr>
                 <td>2020-12-01</td>
                 <td>20건</td>
+                <td>17건</td>
             </tr>
             <tr>
                 <td>2020-11-30</td>
                 <td>30건</td>
+                <td>20건</td>
             </tr>
             <tr>
                 <td>2020-11-29</td>
                 <td>25건</td>
+                <td>15건</td>
             </tr>
         </table>
     </div>

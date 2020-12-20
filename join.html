@@ -11,6 +11,8 @@
     <script src="css/reset.css"></script>
 
     <style>
+      * {padding: 0; margin: 0;}
+
         body {
           background-color: #22bbee;
         }
@@ -19,7 +21,7 @@
         input, select {
           width: 100%;
           padding: 7px 20px;
-          margin: px 0;
+          /* margin: 0px 0; */
           display: inline-block;
           border: 1px solid #ccc;
           border-radius: 4px;
@@ -39,6 +41,7 @@
         
         
         div {
+          overflow: hidden;
           border-radius: 5px;
         }
 
@@ -58,35 +61,53 @@
 <body>
 
     
-    <div>
-        <h2 style="text-align: center; font-size: x-large;"><strong>사원 등록</strong></h2>
+  <div>
+    <h2 style="text-align: center; font-size: x-large;"><strong>사원 등록</strong></h2>
 
-        <form action="home.html" class="col-sm-10 col-ms-8 col-lg-6">
+    <form action="home.html" class="col-sm-10 col-ms-8 col-lg-6">
+        <div>
             <label>* 사번</label>
-            <input type="text" id="epNum" name="epNum">
-            
+            <br/>
+            <input type="text" class="col-xs-9" id="epNum" name="epNum">
+            <input type="button" class="col-xs-3 btn btn-success" onclick="#" value="사번조회" />
+        </div>
+
+        <div>
+            <label>* 아이디</label>
+            <br/>
+            <input type="text" class="col-xs-9" id="id" name="id">
+            <input type="button" class="col-xs-3 btn btn-success" onclick="#" value="중복조회" />
+        </div>
+
+        <div>                
             <label>* 이름</label>
             <input type="text" id="name" name="name">
+        </div>
 
+        <div>    
             <label>* 비밀번호</label>
             <input type="password" id="pw" name="pw">
+        </div>
 
+        <div>    
             <label>* 비밀번호 확인</label>
             <input type="password" id="pwCheck" name="pwCheck">
+        </div>
 
-            <label for="workArea">*지역</label>
-            <select id="workArea" name="workArea">
-                <option value="seoul">서울</option>
-                <option value="gwangju">광주</option>
-                <option value="daegu">대구</option>
-                <option value="daejeon">대전</option>
-                <option value="pusan">부산</option>
+        <div>    
+            <label for="team">*팀</label>
+            <select id="team" name="team">
+                <option value="team1">1</option>
+                <option value="team2">2</option>
+                <option value="team3">3</option>
             </select>
-        
-            <button type="button" class="btn btn-default" onclick="location.href='home.html'">로그인</button>
-            <button type="submit" class="btn btn-primary">등록</button>
-        </form>
-    </div>
+        </div>
+
+        <button type="button" class="btn btn-default" onclick="location.href='home.html'">로그인</button>
+        <button type="submit" class="btn btn-primary">등록</button>
+
+    </form>
+</div>
     
 </body>
 </html>

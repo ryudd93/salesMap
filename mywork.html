@@ -28,19 +28,46 @@
         .dropdown-menu li {
             color: white;
         }
+        
+        table {
+            width: 100%;
+        }
 
         table
         , td
         , th {
             border: 1px solid #777777;
             padding: 5px;
-            margin: 20px;
             text-align: center;
+            font-size: small;
         }
 
         .navbar-nav :hover {
             background-color: black;
         }
+
+        .main {
+            margin: 20px;
+        }
+
+        .detail {
+            overflow: hidden;
+            background-color: rgba(185, 183, 183, 0.467);
+            border-radius: 5px;
+            padding: 10px 5px;
+            line-height: 0.5em;
+        }
+
+        .left {
+            float: left;
+        }
+
+        .right {
+            float: right;
+        }
+
+        
+        
 
     </style>
 
@@ -59,15 +86,15 @@
           </div>
           <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-              <li><a href="mywork.html"><span style="color: white;">Mywork</span></a></li>
-              <li><a href="myinfo.html"><span style="color: white;">MyInfo</span></a></li>
+              <li><a href="mywork.html"><span style="color: white;">My Work</span></a></li>
+              <li><a href="myinfo.html"><span style="color: white;">My Info</span></a></li>
               <li><a href="home.html"><span style="color: white;">logout</span></a></li>
             </ul>
           </div>
         </div>
       </nav>
 
-    <div>
+    <div class="main">
         <h2>My Work</h2>
         <div>
             <select id="workDate" name="workDate">
@@ -84,14 +111,39 @@
             <tr>
                 <th>영업일</th>
                 <th>영업장</th>
-                <th>영업 삭제</th>
+                <th>status</th>
+                <th>삭제</th>
             </tr>
             <tr>
                 <td>2020-12-01</td>
-                <td style="width: 55%;">이츠이츠</td>
-                <td><button type="submit" class="btn btn-danger btn-sm" value="x">x</button></td>
+                <td style="width: 35%"><a href="#detail" data-toggle="collapse">이츠이츠</a></td>
+                <td>소싱</td>
+                <td><button type="button" class="btn btn-danger btn-sm" value="delete"> X </button></td>
             </tr>
         </table>
+        
+        <div>
+            <div id="detail" class="collapse detail">
+                <div class="left">
+                    <p>시간 : </p>
+                    <p>주소 : </p>
+                    <select id="status" name="status">
+                        <option value="sourcing">소싱</option>
+                        <option value="proceeding">진행중</option>
+                        <option value="status">부재</option>
+                        <option value="fail">실패</option>
+                        <option value="">강성실패</option>
+                        <option value="">기계약</option>
+                        <option value="">불가</option>
+                    </select>
+                </div>
+                <div class="right">
+                    <button type="button" class="btn btn-info btn-sm" value="update">수정</button>
+                    <br/>
+                    <!-- <button type="button" class="btn btn-default btn-sm">저장</button> -->
+                </div>
+            </div>
+        </div>
     </div>
     
 </body>

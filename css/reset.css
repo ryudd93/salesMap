@@ -1,5 +1,7 @@
 /* 웹 폰트 설정 */
-@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding:wght@700&display=swap');
+
+body {font-family: 'Nanum Gothic Coding', monospace;}
 
 
 /* ========= 디자인 시작시 전역 설정=========== */

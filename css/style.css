@@ -1,5 +1,8 @@
 /* header */
 
+* {padding: 0; margin: 0;}
+
+
 .navbar {
     background-color: #22bbee;
     border: 1px solid #22bbee;
@@ -13,4 +16,10 @@
 
 .dropdown-menu li {
     color: white;
+}
+
+/* section */
+
+.main {
+    margin: 20px;
 }
