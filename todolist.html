@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>     <!--jquery-->
+    
+    <style>
+
+        
+        .navbar {
+            background-color: #00aaff;
+            border: 1px solid #00aaff;
+            color: white;
+        }
+
+       
+        .dropdown-toggle a{
+            color: white;
+        }
+
+        .dropdown-menu li {
+            color: white;
+        }
+        
+        table {
+            width: 100%;
+        }
+
+        table
+        , td
+        , th {
+            padding: 3px;
+            text-align: center;
+            font-size: small;
+        }
+
+        .navbar-nav :hover {
+            background-color: black;
+        }
+
+        .main {
+            margin: 20px;
+        }
+
+        .detail {
+            overflow: hidden;
+            background-color: rgba(185, 183, 183, 0.467);
+            border-radius: 5px;
+            padding: 10px 5px;
+            line-height: 0.5em;
+        }
+
+        .left {
+            float: left;
+        }
+
+        .right {
+            float: right;
+            padding-bottom: 7px;
+        }
+
+        .main {
+            margin: 20px;
+        }
+
+        .date {
+            padding: 10px 0;
+        }
+
+
+    </style>
+
+</head>
+<body>
+
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="map.html" style="color: white;">SalesMap</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+                    <li><a href="todolist.html"><span style="color: white;">To-Do-List</span></a></li>
+                    <!-- <li><a href="team.html"><span style="color: white;">Team</span></a></li> -->
+                    <li><a href="mywork.html"><span style="color: white;">Mywork</span></a></li>
+                    <li><a href="myinfo.html"><span style="color: white;">MyInfo</span></a></li>
+                    <li><a href="home.html"><span style="color: white;">logout</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <section>
+    <div class="main">
+        <div>
+            <h2>To-Do-List</h2>
+        </div>
+
+        <div class="date">
+            <div class="left">
+                <input type="date">
+            </div>
+            <div class="right">
+                <button type="button" class="btn btn-default btn-sm btnAdd" onclick="tableAdd()">추가</button>
+            </div>
+        </div>
+
+
+        <table class="todoTable">
+            <thead>
+                <tr>
+                    <th>Store</th>
+                    <!-- <th>찾기</th> -->
+                    <th>주소</th>
+                </tr>
+            </thead>
+            <tbody id="tblShow">
+                <tr>
+                    <td><input type="text" class="form-control"></td>
+                    <td>
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search">
+                            <div class="input-group-btn">
+                                <button class="btn btn-default" type="submit">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </button>
+                            </div>
+                    </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input type="text" class="form-control"></td>
+                    <td>
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search">
+                            <div class="input-group-btn">
+                                <button class="btn btn-default" type="submit">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </button>
+                            </div>
+                    </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input type="text" class="form-control"></td>
+                    <td>
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search">
+                            <div class="input-group-btn">
+                                <button class="btn btn-default" type="submit">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="right">
+            <button type="button" class="btn btn-primary btn-sm">저장</button>
+        </div>
+    </div>
+    </section>
+
+    <script>
+        function tableAdd() {
+            var addTable = document.all("tblShow").insertRow();
+
+            // var i = 0;
+            // while(i == 7) {
+                
+            //     if(i < 7) {
+                    addTable.innerHTML = '<td><input type="text" class="form-control"></td>'
+                            +'<td>'
+                                +'<div class="input-group">'
+                                    +'<input type="text" class="form-control" placeholder="Search">'
+                                    +'<div class="input-group-btn">'
+                                        +'<button class="btn btn-default" type="submit">'
+                                            +'<i class="glyphicon glyphicon-search"></i>'
+                                        +'</button>'
+                                    +'</div>'
+                                +'</div>'
+                            +'</td>';
+
+                    // var storeName = addTable.insertCell();
+                    // storeName.innerHTML = '<input type="text" class="form-control"></td>';
+
+                    // var storeAddress = addTable.insertCell();
+                    // storeAddress.innerHTML = '<div class="input-group">'
+                    //                 '+<input type="text" class="form-control" placeholder="Search">'
+                    //                 '+<div class="input-group-btn">'
+                    //                     '+<button class="btn btn-default" type="submit">'
+                    //                         '+<i class="glyphicon glyphicon-search"></i>'
+                    //                     '+</button>'
+                    //                 '+</div>'
+                    //             '+</div>';
+                    
+                //     i++;
+                // } else {
+                //     alert('등록은 한번에 10개까지 가능합니다.');
+                // }
+        }
+        
+
+    </script>
+</body>
+</html>

@@ -14,7 +14,6 @@
       * {padding: 0; margin: 0;}
 
         body {
-          /* background-color: #00aaff; */
           background-color: #f0f0f0;
         }
 
@@ -52,7 +51,7 @@
 
         h2 {
           margin-top: 50px;
-          /* color: white; */
+          color: black;
         }
 
         </style>
@@ -63,19 +62,19 @@
 
     
   <div>
-    <h2 style="text-align: center; font-size: x-large;"><strong>사원 등록</strong></h2>
+    <h2 style="text-align: center; font-size: x-large;"><strong>정보 수정</strong></h2>
 
     <form action="home.html" class="col-sm-10 col-ms-8 col-lg-6">
         <div>
             <label>* 사번</label>
             <br/>
-            <input type="text" class="col-xs-9" id="epNum" name="epNum">
-            <input type="button" class="col-xs-3 btn btn-success" onclick="#" value="사번조회" />
+            <p>사번</p>
         </div>
 
         <div>                
             <label>* 이름</label>
-            <input type="text" id="name" name="name">
+            <br/>
+            <p>이름</p>
         </div>
 
         <div>    
@@ -97,8 +96,8 @@
             </select>
         </div>
 
-        <button type="button" class="btn btn-default" onclick="location.href='home.html'">로그인</button>
-        <button type="submit" class="btn btn-primary">등록</button>
+        <button type="button" class="btn btn-default" onclick="location.href='myinfo.html'">취소</button>
+        <button type="submit" class="btn btn-primary">저장</button>
 
     </form>
 </div>

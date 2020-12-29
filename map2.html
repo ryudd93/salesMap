@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Map2</title>
+
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="css/reset.css"></script>
+
+    <style>
+        /* .dropbtn {
+            background-color: #22bbee;
+            color: white;
+            padding: 16px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {background-color: #f1f1f1;}
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown:hover .dropbtn {
+            background-color: #5ca4c9;
+        } */
+
+        .navbar {
+            background-color: #00aaff;
+            border: 1px solid #00aaff;
+            color: white;
+        }
+
+
+        .dropdown-toggle a {
+            color: white;
+        }
+
+        .dropdown-menu li {
+            color: white;
+        }
+
+        .glyphicon {
+            width: 50px;
+        }
+
+        table {
+            width: 100%;
+            text-align: center;
+        }
+
+        table
+        , td
+        , th {
+            border: 1px solid #777777;
+        }
+
+        .main {
+            padding: 10px 0;
+        }
+
+        .search {
+            padding: 10px 0;
+        }
+
+        section {
+            padding: 20px;
+        }
+    </style>
+
+
+</head>
+
+<body>
+
+
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="map.html" style="color: white;">SalesMap</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+                    <li><a href="todolist.html"><span style="color: white;">ToDoList</span></a></li>
+                    <!-- <li><a href="team.html"><span style="color: white;">Team</span></a></li> -->
+                    <li><a href="mywork.html"><span style="color: white;">Mywork</span></a></li>
+                    <li><a href="myinfo.html"><span style="color: white;">MyInfo</span></a></li>
+                    <li><a href="home.html"><span style="color: white;">logout</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <section>
+
+        <div>
+            <span>지역을 선택하세요</span>
+            <select id="city" name="city">
+                <option value="city1">city1</option>
+                <option value="city2">city2</option>
+                <option value="city3">city3</option>
+                <option value="city4">city4</option>
+                <option value="city5">city5</option>
+                <option value="city6">city6</option>
+                <option value="city7">city7</option>
+            </select>
+            <select id="gu" name="gu">
+                <option value="gu1">gu1</option>
+                <option value="gu2">gu2</option>
+                <option value="gu3">gu3</option>
+                <option value="gu4">gu4</option>
+                <option value="gu5">gu5</option>
+                <option value="gu6">gu6</option>
+                <option value="gu7">gu7</option>
+            </select>
+            <button type="submit">조회</button>
+        </div>
+
+
+
+        <div class="main">
+            <div id="map" style="width:100%;height:350px;"></div>
+            <!-- <div id="clickLatlng"></div> -->
+        </div>
+
+
+        <div class="search">
+            <input type="text" placeholder="매장명 또는 주소">
+            <button type="submit">조회</button>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <td>store</td>
+                    <td>address</td>
+                    <td>salesEmployee</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><a onclick="prompt('storeID : ')">store1</a></td>
+                    <td>서울시 송파구 잠실1</td>
+                    <td>se1</td>
+                </tr>
+                <tr>
+                    <td><a>store2</a></td>
+                    <td>서울시 송파구 송파1</td>
+                    <td>se2</td>
+                </tr>
+                <tr>
+                    <td><a>store3</a></td>
+                    <td>서울시 송파구 문정1</td>
+                    <td>se3</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- <p style="margin-top:-12px">
+            <em class="link">
+                <a href="/web/documentation/#CategoryCode" target="_blank">카테고리 코드목록을 보시려면 여기를 클릭하세요!</a>
+            </em>
+        </p> -->
+
+        <script>
+        // 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
+        var infowindow = new kakao.maps.InfoWindow({zIndex:1});
+        
+        var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+            mapOption = {
+                center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
+                level: 3 // 지도의 확대 레벨
+            };  
+        
+        // 지도를 생성합니다    
+        var map = new kakao.maps.Map(mapContainer, mapOption); 
+        
+        // 장소 검색 객체를 생성합니다
+        var ps = new kakao.maps.services.Places(map); 
+        
+        // 카테고리로 은행을 검색합니다
+        ps.categorySearch('FD6' && 'CE7', placesSearchCB, {useMapBounds:true}); 
+        
+        // 키워드 검색 완료 시 호출되는 콜백함수 입니다
+        function placesSearchCB (data, status, pagination) {
+            if (status === kakao.maps.services.Status.OK) {
+                for (var i=0; i<data.length; i++) {
+                    displayMarker(data[i]);    
+                }       
+            }
+        }
+        
+        // 지도에 마커를 표시하는 함수입니다
+        function displayMarker(place) {
+            // 마커를 생성하고 지도에 표시합니다
+            var marker = new kakao.maps.Marker({
+                map: map,
+                position: new kakao.maps.LatLng(place.y, place.x) 
+            });
+        
+            // 마커에 클릭이벤트를 등록합니다
+            kakao.maps.event.addListener(marker, 'click', function() {
+                // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
+                infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>');
+                infowindow.open(map, marker);
+            });
+        }
+        </script>
+
+</body>
+
+</html>

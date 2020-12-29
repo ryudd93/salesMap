@@ -15,8 +15,8 @@
 
     <style>
         .navbar {
-            background-color: #22bbee;
-            border: 1px solid #22bbee;
+            background-color: #00aaff;
+            border: 1px solid #00aaff;
             color: white;
         }
 
@@ -66,6 +66,7 @@
             float: right;
         }
 
+
         
         
 
@@ -76,75 +77,67 @@
 
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="map.html" style="color: white;">SalesMap</a>
-          </div>
-          <div class="collapse navbar-collapse" id="myNavbar">
-            <ul class="nav navbar-nav">
-              <li><a href="mywork.html"><span style="color: white;">My Work</span></a></li>
-              <li><a href="myinfo.html"><span style="color: white;">My Info</span></a></li>
-              <li><a href="home.html"><span style="color: white;">logout</span></a></li>
-            </ul>
-          </div>
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="map.html" style="color: white;">SalesMap</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+                    <li><a href="todolist.html"><span style="color: white;">ToDoList</span></a></li>
+                    <!-- <li><a href="team.html"><span style="color: white;">Team</span></a></li> -->
+                    <li><a href="mywork.html"><span style="color: white;">Mywork</span></a></li>
+                    <li><a href="myinfo.html"><span style="color: white;">MyInfo</span></a></li>
+                    <li><a href="home.html"><span style="color: white;">logout</span></a></li>
+                </ul>
+            </div>
         </div>
-      </nav>
+    </nav>
 
+    <section>
     <div class="main">
         <h2>My Work</h2>
-        <div>
-            <select id="workDate" name="workDate">
-                <option value="workDate">2020-12-01</option>
-                <option value="workDate">2020-11-30</option>
-                <option value="workDate">2020-11-29</option>
-            </select>
-            <span>영업수 : 20개</span>
+        <div class="date">
+            <input type="date" id="workDate">
+            <p>영업수 : 20개</p>
         </div>
 
         <hr/>
         
         <table>
-            <tr>
-                <th>영업일</th>
-                <th>영업장</th>
-                <th>status</th>
-                <th>삭제</th>
-            </tr>
-            <tr>
-                <td>2020-12-01</td>
-                <td style="width: 35%"><a href="#detail" data-toggle="collapse">이츠이츠</a></td>
-                <td>소싱</td>
-                <td><button type="button" class="btn btn-danger btn-sm" value="delete"> X </button></td>
-            </tr>
-        </table>
-        
-        <div>
-            <div id="detail" class="collapse detail">
-                <div class="left">
-                    <p>시간 : </p>
-                    <p>주소 : </p>
-                    <select id="status" name="status">
-                        <option value="sourcing">소싱</option>
-                        <option value="proceeding">진행중</option>
-                        <option value="status">부재</option>
-                        <option value="fail">실패</option>
+            <thead>
+                <tr>
+                    <th>영업일</th>
+                    <th>영업장</th>
+                    <th>status</th>
+                    <th>삭제</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>영업일</td>
+                    <td>영업장</td>
+                    <td><select id="status" name="status">
+                        <option value="">타겟</option>
+                        <option value="">소싱</option>
+                        <option value="">진행중</option>
+                        <option value="">부재</option>
+                        <option value="">실패</option>
                         <option value="">강성실패</option>
                         <option value="">기계약</option>
                         <option value="">불가</option>
-                    </select>
-                </div>
-                <div class="right">
-                    <button type="button" class="btn btn-info btn-sm" value="update">수정</button>
-                    <br/>
-                    <!-- <button type="button" class="btn btn-default btn-sm">저장</button> -->
-                </div>
-            </div>
-        </div>
+                    </select></td>
+                    <td><button type="button" class="btn btn-danger btn-sm">삭제</button></td>
+                </tr>
+            </tbody>
+        </table>
+        
+        
     </div>
+    </section> 
     
 </body>
 </html>

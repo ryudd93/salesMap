@@ -16,8 +16,8 @@
     
 
         .navbar {
-            background-color: #22bbee;
-            border: 1px solid #22bbee;
+            background-color: #00aaff;
+            border: 1px solid #00aaff;
             color: white;
         }
 
@@ -29,16 +29,26 @@
 </head>
 <body>
 
-    <nav class="navbar navbar-inverse">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <a class="navbar-brand" href="map.html">SalesMap</a>
-          </div>
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="#"><span class="glyphicon glyphicon-user"></span></a></li>
-          </ul>
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="map.html" style="color: white;">SalesMap</a>
         </div>
-      </nav>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+                <li><a href="team.html"><span style="color: white;">Team</span></a></li>
+                <li><a href="mywork.html"><span style="color: white;">Mywork</span></a></li>
+                <li><a href="myinfo.html"><span style="color: white;">MyInfo</span></a></li>
+                <li><a href="home.html"><span style="color: white;">logout</span></a></li>
+            </ul>
+        </div>
+    </div>
+  </nav>
     
 </body>
 </html>
