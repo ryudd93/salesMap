@@ -9,11 +9,14 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <script src="css/reset.css"></script>
-    <script src="css/style.css"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
+    
 
 
     <style>
+        * {font-family: 'Nanum Gothic', sans-serif;}
+        
         .navbar {
             background-color: #00aaff;
             border: 1px solid #00aaff;
@@ -61,7 +64,16 @@
         .date {
             padding: 5px 0;
         }
-        
+
+        .date span {
+            padding: 0 7px;
+        }
+        .left {
+            float: left;
+        }
+        .right {
+            float: right;
+        }
 
         
 
@@ -83,58 +95,97 @@
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
-                    <li><a href="todolist.html"><span style="color: white;">ToDoList</span></a></li>
+                    <li><a href="todolist.html"><span style="color: white;">To-Do-List</span></a></li>
                     <!-- <li><a href="team.html"><span style="color: white;">Team</span></a></li> -->
-                    <li><a href="mywork.html"><span style="color: white;">Mywork</span></a></li>
-                    <li><a href="myinfo.html"><span style="color: white;">MyInfo</span></a></li>
+                    <li><a href="mywork.html"><span style="color: white;">My Work</span></a></li>
+                    <li><a href="myinfo.html"><span style="color: white;">My Info</span></a></li>
                     <li><a href="home.html"><span style="color: white;">logout</span></a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
-      
-    <div class="main">
-        <h2>My Info</h2>
+    <section>
+        <div class="main">
+            <h2><strong>My Info</strong></h2>
 
-        <div class="infoForm">
-            <div class="left">
-                <p>이름</p>
-                <p>팀</p>
+            <div class="infoForm">
+                <div class="left">
+                    <p>이름</p>
+                    <p>팀</p>
+                </div>
+                <button type="button" class="btn btn-primary btn-sm" onclick="location.href='modifyInfo.html'">정보 수정</button>
             </div>
-            <button type="button" class="btn btn-primary" onclick="location.href='modifyInfo.html'">정보 수정</button>
-        </div>
 
-        <hr/>
-        
-        <div class="date">
-            <input type="week">
+            <hr/>
+            
+            <div>
+                <div class="date left">
+                    <input type="date" id="lastWeek"><span>~</span><input type="date" id="currentDate" />
+                </div>
+                <div class="right">
+                    <button type="button" class="btn btn-default btn-sm">조회</button>
+                </div>
+            </div>
+            
+            <table>
+                <tr>
+                    <th>영업일</th>
+                    <th>컨택</th>
+                    <th>소싱</th> 
+                </tr>
+                <tr>
+                    <td>2020-12-01</td>
+                    <td>20건</td>
+                    <td>17건</td>
+                </tr>
+                <tr>
+                    <td>2020-11-30</td>
+                    <td>30건</td>
+                    <td>20건</td>
+                </tr>
+                <tr>
+                    <td>2020-11-29</td>
+                    <td>25건</td>
+                    <td>15건</td>
+                </tr>
+            </table>
         </div>
-        
-        <table>
-            <tr>
-                <th>영업일</th>
-                <th>컨택</th>
-                <th>소싱</th> 
-            </tr>
-            <tr>
-                <td>2020-12-01</td>
-                <td>20건</td>
-                <td>17건</td>
-            </tr>
-            <tr>
-                <td>2020-11-30</td>
-                <td>30건</td>
-                <td>20건</td>
-            </tr>
-            <tr>
-                <td>2020-11-29</td>
-                <td>25건</td>
-                <td>15건</td>
-            </tr>
-        </table>
-    </div>
+    </section>
 
+
+    <script>
+        function getFormatDate(date) {
+            var year = date.getFullYear();
+            var month = (1 + date.getMonth());
+            month = month >= 10 ? month : '0' + month;
+            var day = date.getDate();
+            day = day >= 10 ? day : '0' + day;
+            
+            return year + '-' + month + '-' + day;
+        }
+
+        document.getElementById('currentDate').value = getFormatDate(new Date());
+
+        function getLastWeek(date) {
+            var weekDate = date.getTime() - (7 * 24 * 60 * 60 * 1000);
+            date.setTime(weekDate);
+
+            var year = date.getFullYear();
+            var month = (1 + date.getMonth());
+            month = month >= 10 ? month : '0' + month;
+            var day = date.getDate();
+            day = day >= 10 ? day : '0' + day;
+            
+            return year + '-' + month + '-' + day;
+        }
+
+        document.getElementById('lastWeek').value = getLastWeek(new Date());
+
+
+         
+
+    </script>
     
 </body>
 </html>

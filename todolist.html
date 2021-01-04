@@ -8,10 +8,14 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>     <!--jquery-->
 
     
     <style>
+        * {font-family: 'Nanum Gothic', sans-serif;}
+        
 
         
         .navbar {
@@ -84,6 +88,14 @@
             padding: 20px;
         }
 
+        input {
+            border-radius: 3px;
+        }
+        .add {
+            text-align: center;
+            padding-top: 7px;
+        }
+       
 
 
         
@@ -110,8 +122,8 @@
                 <ul class="nav navbar-nav">
                     <li><a href="todolist.html"><span style="color: white;">To-Do-List</span></a></li>
                     <!-- <li><a href="team.html"><span style="color: white;">Team</span></a></li> -->
-                    <li><a href="mywork.html"><span style="color: white;">Mywork</span></a></li>
-                    <li><a href="myinfo.html"><span style="color: white;">MyInfo</span></a></li>
+                    <li><a href="mywork.html"><span style="color: white;">My Work</span></a></li>
+                    <li><a href="myinfo.html"><span style="color: white;">My Info</span></a></li>
                     <li><a href="home.html"><span style="color: white;">logout</span></a></li>
                 </ul>
             </div>
@@ -121,15 +133,12 @@
     <section>
     <div class="main">
         <div>
-            <h2>To-Do-List</h2>
+            <h2><strong>To-Do-List</strong></h2>
         </div>
 
         <div class="date">
             <div class="left">
-                <input type="date">
-            </div>
-            <div class="right">
-                <button type="button" class="btn btn-default btn-sm btnAdd" onclick="tableAdd()">추가</button>
+                <input type="date" id="currentDate">
             </div>
         </div>
 
@@ -138,52 +147,74 @@
             <thead>
                 <tr>
                     <th>Store</th>
-                    <!-- <th>찾기</th> -->
                     <th>주소</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody id="tblShow">
                 <tr>
-                    <td><input type="text" class="form-control"></td>
                     <td>
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search">
-                            <div class="input-group-btn">
-                                <button type="submit" class="btn btn-default" data-toggle="modal" data-target="#myModal">
-                                    <i class="glyphicon glyphicon-search"></i>
-                                </button>
-                            </div>
-                    </div>
+                            <input type="text" class="form-control" style="border-radius: 5px;">                            
+                        </div>
                     </td>
-                </tr>
-                <tr>
-                    <td><input type="text" class="form-control"></td>
                     <td>
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search">
-                            <div class="input-group-btn">
-                                <button type="submit" class="btn btn-default" data-toggle="modal" data-target="#myModal">
-                                    <i class="glyphicon glyphicon-search"></i>
-                                </button>
-                            </div>
+                            <input type="text" class="form-control" style="border-radius: 5px;">
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <button type="submit" class="btn btn-default" data-toggle="modal" data-target="#myModal">
+                                <i class="glyphicon glyphicon-search"></i>
+                            </button>
                         </div>
                     </td>
                 </tr>
                 <tr>
-                    <td><input type="text" class="form-control"></td>
                     <td>
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search">
-                            <div class="input-group-btn">
-                                <button type="submit" class="btn btn-default" data-toggle="modal" data-target="#myModal">
-                                    <i class="glyphicon glyphicon-search"></i>
-                                </button>
-                            </div>
+                            <input type="text" class="form-control" style="border-radius: 5px;">                            
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            <input type="text" class="form-control" style="border-radius: 5px;">
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <button type="submit" class="btn btn-default" data-toggle="modal" data-target="#myModal">
+                                <i class="glyphicon glyphicon-search"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="input-group">
+                            <input type="text" class="form-control" style="border-radius: 5px;">                            
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            <input type="text" class="form-control" style="border-radius: 5px;">
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <button type="submit" class="btn btn-default" data-toggle="modal" data-target="#myModal">
+                                <i class="glyphicon glyphicon-search"></i>
+                            </button>
                         </div>
                     </td>
                 </tr>
             </tbody>
         </table>
+        
+        <div class="add">
+            <button type="button" class="btn btn-default btn-sm btnAdd" onclick="tableAdd()">+</button>
+        </div>
 
         <div class="right">
             <button type="button" class="btn btn-primary btn-sm">저장</button>
@@ -226,7 +257,7 @@
                                     <p>주소</p>
                                     <p>연락처</p>
                                 </td>
-                                <td><button type="button" class="btn btn-primary right">선택</button></td>
+                                <td><button type="button" class="btn btn-primary btn-sm right">선택</button></td>
                             </tr>
                             <tr>
                                 <td>
@@ -234,7 +265,7 @@
                                     <p>주소</p>
                                     <p>연락처</p>
                                 </td>
-                                <td><button type="button" class="btn btn-primary right">선택</button></td>
+                                <td><button type="button" class="btn btn-primary btn-sm right">선택</button></td>
                             </tr>
                             <tr>
                                 <td>
@@ -242,7 +273,7 @@
                                     <p>주소</p>
                                     <p>연락처</p>
                                 </td>
-                                <td><button type="button" class="btn btn-primary right">선택</button></td>
+                                <td><button type="button" class="btn btn-primary btn-sm right">선택</button></td>
                             </tr>
                             </tbody>
                         </table>
@@ -265,17 +296,25 @@
             // while(i == 7) {
                 
             //     if(i < 7) {
-                    addTable.innerHTML = '<td><input type="text" class="form-control"></td>'
-                            +'<td>'
-                                +'<div class="input-group">'
-                                    +'<input type="text" class="form-control" placeholder="Search">'
-                                    +'<div class="input-group-btn">'
-                                        +'<button type="submit" class="btn btn-default" data-toggle="modal" data-target="#myModal">'
-                                            +'<i class="glyphicon glyphicon-search"></i>'
-                                        +'</button>'
-                                    +'</div>'
-                                +'</div>'
-                            +'</td>';
+                    addTable.innerHTML = '<tr>' +
+                            '<td>' +
+                                '<div class="input-group">' +
+                                    '<input type="text" class="form-control" style="border-radius: 5px;">' +
+                                '</div>' +
+                            '</td>' +
+                            '<td>' +
+                                '<div class="input-group">' +
+                                    '<input type="text" class="form-control" style="border-radius: 5px;">' +
+                                '</div>' +
+                            '</td>' +
+                            '<td>' +
+                            '<div>' +
+                                    '<button type="submit" class="btn btn-default" data-toggle="modal" data-target="#myModal">' +
+                                        '<i class="glyphicon glyphicon-search"></i>' +
+                                    '</button>' +
+                                '</div>' +
+                            '</td>' +
+                        '</tr>';
 
                     // var storeName = addTable.insertCell();
                     // storeName.innerHTML = '<input type="text" class="form-control"></td>';
@@ -295,6 +334,19 @@
                 //     alert('등록은 한번에 10개까지 가능합니다.');
                 // }
         }
+
+
+        function getFormatDate(date) {
+            var year = date.getFullYear();
+            var month = (1 + date.getMonth());
+            month = month >= 10 ? month : '0' + month;
+            var day = date.getDate();
+            day = day >= 10 ? day : '0' + day;
+            
+            return year + '-' + month + '-' + day;
+        }
+
+        document.getElementById('currentDate').value = getFormatDate(new Date());
 
 
 

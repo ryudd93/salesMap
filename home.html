@@ -8,13 +8,24 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
+    
 
     <style>
-        * {padding: 0; margin: 0;}
+        * {
+            padding: 0; 
+            margin: 0;
+            font-family: 'Nanum Gothic', sans-serif;
+        }
+
+        body {
+            background: #f2f2f2;
+        }
 
         section {
             width: 100%;
-            min-height: 90vh;
+            min-height:80vh;
             display: -webkit-box;
             display: -webkit-flex;
             display: -moz-box;
@@ -24,7 +35,6 @@
             justify-content: center;
             align-items: center;
             padding: 15px;
-            background: #f2f2f2;  
             
         }
         .simple-login-container{
@@ -62,6 +72,9 @@
         .right {
             float: right;
         }
+        .row .form-group p {
+            padding-top: 10px;
+        }
     </style>
 
 </head>
@@ -72,7 +85,7 @@
             <!-- <h2 style="text-align: center; font-size: x-large;"><strong>Login</strong></h2> -->
             <h2><strong>Login</strong></h2>
             
-            <form action="map.html" method="get">
+            <form action="map.html" method="method">
                 <div class="row">
                     <div class="col-md-12 form-group">
                         <input type="text" class="form-control" placeholder="사번">
@@ -87,7 +100,9 @@
                     <div class="col-md-12 form-group">
                         <button type="button" class="btn btn-block btn-default left" onclick="location.href='join.html'">사원 등록</button>
                         <button type="submit" class="btn btn-block btn-primary right">login</button>
-                        <a href="#">비밀번호 초기화</a>
+                        <div class="pwReset">
+                            <a href="#">비밀번호 초기화</a>
+                        </div>
                     </div>
                 </div>            
             </form> 
