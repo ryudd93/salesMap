@@ -10,7 +10,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
-    
 
     <style>
         * {
@@ -79,13 +78,13 @@
 
 </head>
 <body>
-    
-    <section>
+
+<section>
         <div class="simple-login-container">
             <!-- <h2 style="text-align: center; font-size: x-large;"><strong>Login</strong></h2> -->
             <h2><strong>Login</strong></h2>
             
-            <form action="map.html" method="method">
+            <form action="/view/map" method="get">
                 <div class="row">
                     <div class="col-md-12 form-group">
                         <input type="text" class="form-control" placeholder="사번">
@@ -98,7 +97,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12 form-group">
-                        <button type="button" class="btn btn-block btn-default left" onclick="location.href='join.html'">사원 등록</button>
+                        <button type="button" class="btn btn-block btn-default left" onclick="location.href='/view/join'">사원 등록</button>
                         <button type="submit" class="btn btn-block btn-primary right">login</button>
                         <div class="pwReset">
                             <a href="#">비밀번호 초기화</a>
@@ -108,6 +107,30 @@
             </form> 
         </div>
     </section>
+    
+    <!-- <div class="simple-login-container">
+        <h2 style="text-align: center; font-size: x-large;"><strong>Login</strong></h2>
+        
+        <form action="/view/map" method="get">
+            <div class="row">
+                <div class="col-md-12 form-group">
+                    <input type="text" class="form-control" placeholder="ID">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 form-group">
+                    <input type="password" placeholder="Password" class="form-control">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 form-group">
+                    <button type="button" class="btn btn-block btn-default" onclick="location.href='/view/join'">사원 등록</button>
+                    <button type="submit" class="btn btn-block btn-primary">login</button>
+                    <a href="#" style="text-align: center;">비밀번호 초기화</a>
+                </div>
+            </div>            
+        </form> 
+    </div> -->
 
 
 

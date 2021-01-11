@@ -1,18 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SalesMap</title>
 
-        
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
-    
+
 
     <style>
         * {font-family: 'Nanum Gothic', sans-serif;}
@@ -21,9 +20,7 @@
             background-color: #00aaff;
             border: 1px solid #00aaff;
             color: white;
-        }
-
-       
+        }      
         .dropdown-toggle a{
             color: white;
         }
@@ -58,7 +55,6 @@
             padding: 10px 5px;
             line-height: 0.5em;
         }
-
         .left {
             float: left;
         }
@@ -72,12 +68,10 @@
         }
         .date {
             padding-top: 20px;
+            /* width: 30px;
+            display: inline;
+            overflow: hidden; */
         }
-
-
-        
-        
-
     </style>
 
 </head>
@@ -91,34 +85,44 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="map.html" style="color: white;">SalesMap</a>
+                <a class="navbar-brand" href="/view/map" style="color: white;">SalesMap</a>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
-                    <li><a href="todolist.html"><span style="color: white;">To-Do-List</span></a></li>
-                    <!-- <li><a href="team.html"><span style="color: white;">Team</span></a></li> -->
-                    <li><a href="mywork.html"><span style="color: white;">My Work</span></a></li>
-                    <li><a href="myinfo.html"><span style="color: white;">My Info</span></a></li>
-                    <li><a href="home.html"><span style="color: white;">logout</span></a></li>
+                	<li><a href="/view/todolist"><span style="color: white;">To-Do-List</span></a></li>
+                    <!-- <li><a href="/view/team"><span style="color: white;">Team</span></a></li> -->
+                    <li><a href="/view/mywork"><span style="color: white;">My Work</span></a></li>
+                    <li><a href="/view/myinfo"><span style="color: white;">My Info</span></a></li>
+                    <li><a href="/view/login"><span style="color: white;">logout</span></a></li>
+                    <!-- 
+                    <li><a href="/view/team"><span style="color: white;">Team</span></a></li>
+                    <li><a href="/view/todolist"><span style="color: white;">To-Do-List</span></a></li>
+                    <li><a href="/view/mywork"><span style="color: white;">Mywork</span></a></li>
+                    <li><a href="/view/myinfo"><span style="color: white;">MyInfo</span></a></li>
+                     -->
                 </ul>
             </div>
         </div>
     </nav>
-
+    
     <section>
         <div class="main">
             <div>
                 <h2><strong>My Work</strong></h2>
                 <div class="date">
-                    <input type="date" id="currentDate">
-                    <button type="button" class="btn btn-default btn-sm">조회</button>
+                    <div class="input-group date">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                        <input type="text" autocomplete="off" class="form-control"
+                               readonly="readonly"  id="timePicker" style="margin-right: 10px;width: 105px" th:value="${nowDate}">
+                    </div>
+                    <!-- <button type="button" class="btn btn-default btn-sm">조회</button> -->
                     <div class="right">
                         <table style="display: inline;">
                             <tr>
                                 <td><strong>goal</strong></td>
-                                <td>20개</td>
+                                <td><span id="goal"></span> 개</td>
                                 <td><strong>소싱</strong></td>
-                                <td>0개</td>
+                                <td><span id="done"></span> 개</td>
                             </tr>
                         </table>
                     </div>
@@ -129,7 +133,7 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>영업일</th>
+                            <!-- <th>영업일</th> -->
                             <th>StoreId</th>
                             <th>영업장</th>
                             <th>status</th>
@@ -137,42 +141,233 @@
                             <th>삭제</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="dataBody">
                         <tr>
-                            <td>영업일</td>
-                            <td>StoreId</td>
-                            <td>영업장</td>
-                            <td><select id="status" name="status">
-                                <option value="">타겟</option>
-                                <option value="">소싱</option>
-                                <option value="">진행중</option>
-                                <option value="">부재</option>
-                                <option value="">실패</option>
-                                <option value="">강성실패</option>
-                                <option value="">기계약</option>
-                                <option value="">불가</option>
-                            </select></td>
-                            <td><button type="button" class="btn btn-primary btn-sm">수정</button></td>
+                            <td><button type="button" id="modifyBtn" class="btn btn-primary btn-sm">수정</button></td>
                             <td><button type="button" class="btn btn-danger btn-sm">삭제</button></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-    </section> 
-
+        <div class="modal fade" id="modify" role="dialog">
+            <div class="modal-dialog modal-dialog-centered modal-sm" >
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4>수정하기</h4>
+                    </div>
+                    <div class="modal-body" id="modalContent">
+                        <input type="hidden" id="storeNo"  name="storeNo">
+                        <table class="table table-hover modal-table">
+                            <tbody id="addrList">
+                               <tr>
+                                   <th>storeId</th>
+                                    <td>
+                                        <input type="text" id="storeId" value="" class="form-control">
+                                    </td>
+                               </tr>
+                                <tr>
+                                   <th>status</th>
+                                    <td>
+                                        <select id="status" name="status" class="form-control">
+                                            <option value="1">타겟</option>
+                                            <option value="2">소싱</option>
+                                            <option value="3">진행중</option>
+                                            <option value="4">부재</option>
+                                            <option value="5">실패</option>
+                                            <option value="6">강성실패</option>
+                                            <option value="7">기계약</option>
+                                            <option value="8">불가</option>
+                                        </select>
+                                    </td>
+                               </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-sm btn-primary" onclick="modifyWork();" style="width: 80px">수정</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="width: 80px">닫기</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-datepicker.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-datepicker-theme.css}" />
+    <script type="text/javascript" th:src="@{/js/moment/moment.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap-datepicker.js}"></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap-datepicker.ko.js}"></script>
     <script>
-        function getFormatDate(date) {
-            var year = date.getFullYear();
-            var month = (1 + date.getMonth());
-            month = month >= 10 ? month : '0' + month;
-            var day = date.getDate();
-            day = day >= 10 ? day : '0' + day;
-            
-            return year + '-' + month + '-' + day;
+
+        function initDate() {
+            //datepicker
+            $('#timePicker').datepicker({
+
+                calendarWeeks: false,
+                todayHighlight: true,
+                autoclose: true,
+                setDate: new Date(),
+                maxDate : 0,
+                format: 'yyyy-mm-dd',
+                language: "ko",
+                orientation: "bottom auto",
+                ignoreReadonly: true
+            });
         }
 
-        document.getElementById('currentDate').value = getFormatDate(new Date());
+        function getDate() {
+
+            var toDate = $('#timePicker').val();
+
+            $.ajax({
+                url : '/mywork/getData',
+                data: {toDate: toDate},
+                dataType: 'json',
+            }).done(function (data) {
+                console.log(data);
+                drawTable(data);
+            }).fail(function(data, textStatus, errorThrown){
+                console.log(textStatus);
+            });
+        }
+
+        function drawTable(data) {
+            $('#goal').text(data.goal);
+            $('#done').text(data.done);
+
+            var tbody = $('#dataBody');
+
+            tbody.empty();
+
+            $.each(data.workList, function(index, obj) {
+                var tr = $('<tr></tr>');
+                var td1 = $('<td></td>');
+                var td2 = $('<td></td>');
+                var td3 = $('<td></td>');
+                var td4 = $('<td></td>');
+                var td5 = $('<td></td>');
+                var modifyBtn = $('<button>수정</button>')
+                var delBtn = $('<button>삭제</button>')
+
+                modifyBtn.attr('type', 'button');
+                modifyBtn.addClass('btn btn-primary btn-sm');
+                modifyBtn.on('click', function () {
+                    showModal(obj.storeId, obj.statusNo, obj.storeNo);
+                });
+
+                delBtn.attr('type', 'button');
+                delBtn.addClass('btn btn-danger btn-sm');
+                delBtn.on('click', function () {
+                    delWork(obj.storeNo);
+                });
+
+                td1.append(obj.storeId);
+                td2.append(obj.placeName);
+                td3.append(obj.statusName);
+                td4.append(modifyBtn);
+
+                tr.append(td1);
+                tr.append(td2);
+                tr.append(td3);
+                tr.append(td4);
+
+                tbody.append(tr);
+            });
+
+        }
+
+
+        function makeSelect(index, codeList, data) {
+            var id = 'stat' + data.storeNo;
+            var select = $('<select id="' + id + '"></select>');
+
+            $.each(codeList, function (index, obj) {
+                var opt = $('<option></option>');
+
+                opt.val(obj.codeNo);
+                opt.text(obj.codeName);
+
+                if(obj.codeNo == data.statusNo) {
+                    opt.attr('selected', 'selected');
+                }
+
+                select.append(opt);
+            });
+
+            console.log(select);
+            return select;
+        }
+
+        function showModal(storeId, statusNo, storeNo) {
+
+            $('#modify').modal('show');
+
+            $('#modify').on('shown.bs.modal', function () {
+                $('#storeId').val(storeId);
+                $('#status').val(statusNo);
+                $('#storeNo').val(storeNo);
+            })
+        }
+
+        function modifyWork() {
+            var storeNo =    $('#storeNo').val();
+            var storeId =    $('#storeId').val();
+            var statusNo =   $('#status').val();
+
+            var param = {
+                storeNo : storeNo,
+                storeId: storeId,
+                statusNo : statusNo
+            }
+
+            $.ajax({
+                url : '/mywork/modify',
+                data: param,
+                dataType: 'json',
+            }).done(function (data) {
+                if(data.resultCode == 200)  {
+                    alert('수정되었습니다.')
+                    location.reload();
+                }else {
+                    alert('수정이 실패했습니다.');
+                    return false;
+                }
+            }).fail(function(data, textStatus, errorThrown){
+                console.log(textStatus);
+            });
+        }
+
+        function delWork(storeNo) {
+
+            var isConfirm = confirm('정말 삭제하시겠습니까?') ;
+
+            if(isConfirm) {
+
+                $.ajax({
+                    url : '/mywork/delWork',
+                    data: {storeNo: storeNo},
+                    dataType: 'json',
+                }).done(function (data) {
+                    if(data.resultCode == 200)  {
+                        alert('삭제 되었습니다.')
+                        location.reload();
+                    }else {
+                        alert('삭제가 실패했습니다.');
+                        return false;
+                    }
+                }).fail(function(data, textStatus, errorThrown){
+                    console.log(textStatus);
+                });
+            }
+        }
+
+        $(document).ready(function () {
+            initDate();
+            getDate();
+
+
+        });
+
     </script>
     
 </body>

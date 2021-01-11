@@ -10,43 +10,24 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
-    
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.2/css/bootstrap.min.css}">
 
     <style>
-      
-      * {padding: 0; margin: 0; box-sizing: border-box; font-family: 'Nanum Gothic', sans-serif;}
+        * {padding: 0; margin: 0;}
 
         body {
-          /* background-color: #00aaff; */
-          background-color: #f0f0f0;
-        }
-
-
-        input, select {
-          width: 100%;
-          padding: 7px 20px;
-          /* margin: 0px 0; */
-          display: inline-block;
-          border: 1px solid #ccc;
-          border-radius: 4px;
-          box-sizing: border-box;
+            background-color: #f2f2f2;
         }
         
         button {
-          width: 50%;
-          color: white;
-          padding: 14px 20px;
-          margin: 70px 0;
-          border: none;
-          border-radius: 4px;
-          cursor: pointer;
-          float: left;
-        }
-        
-        
-        div {
-          overflow: hidden;
-          border-radius: 5px;
+            width: 50%;
+            color: white;
+            padding: 14px 20px;
+            margin: 70px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            float: left;
         }
 
         label {
@@ -54,57 +35,229 @@
         }
 
         h2 {
-          margin-top: 50px;
-          /* color: white; */
+            margin-top: 50px;
         }
 
-        </style>
 
+    </style>
 
 </head>
 <body>
-
-    
-  <div>
-    <h2 style="text-align: center; font-size: x-large;"><strong>사원 등록</strong></h2>
-
-    <form action="home.html" class="col-sm-10 col-ms-8 col-lg-6">
-        <div>
-            <label>* 사번</label>
-            <br/>
-            <input type="text" class="col-xs-9" id="epNum" name="epNum">
-            <input type="button" class="col-xs-3 btn btn-success" onclick="#" value="사번조회" />
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 text-center" >
+            <!-- <div class="col-sm-3"></div> -->
+            <div class="col-sm-6">
+                <h2>회원가입</h2>
+                <form action="/mem/register" method="post" id="joinFrm">
+                    <table class="table table-boardered">
+                        <tr>
+                            <th style="padding-top: 15px">
+                               <span><span style="color:red">*</span>사    번</span>
+                            </th>
+                            <td>
+                                <div class="form-group">
+                                <div class="row">
+                                    <div class="col-8 col-md-8 col-sm-8 col-xs-8" style="text-align: right; padding: 0px 0px 0px 15px">
+                                         <input type="text" class="form-control" id="empId" name="empId">
+                                    </div>
+                                    <div class="col-4 col-md-4 col-sm-4 col-xs-4" style="text-align: left; padding: 0px 0px 0px 0px">
+                                        <input type="button" class="btn btn-success btn-sm" onclick="searchEmpId();" value="사번조회" />
+                                    </div>
+                                </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th style="padding-top: 15px"><span style="color:red">*</span>비밀번호</th>
+                            <td>
+                                <div class="form-group">
+                                    <input type="password" class="form-control" id="empPw" name="empPw" placeholder="">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th style="padding-top: 15px">
+                                <span style="color:red">*</span>비밀번호확인
+                            </th>
+                            <td>
+                                <div class="form-group">
+                                    <input type="password" class="form-control" name="confirmPw" id="confirmPw">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th style="padding-top: 15px"><span style="color:red">*</span>이    름</th>
+                            <td>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="empName" name="empName" placeholder="이름을 입력하시오.">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>전화번호</th>
+                            <td><input type="tel" class="form-control" id="phone" name="phone"></td>
+                        </tr>
+                        <tr>
+                            <th><span style="color:red">*</span>팀</th>
+                            <td>
+                                <select name="team" id="team" class="form-control">
+                                    <option th:each="team : ${teamList}" th:value="${team.teamCode}" th:text="${team.teamName}"></option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th style="padding-top: 15px"><span style="color:red">*</span>직급</th>
+                            <td>
+                                <input type="text" class="form-control" id="position" name="position" placeholder="">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <input type="button" class="btn btn-primary" onclick="joinUser();" value="전송">
+                                <input type="reset" class="btn btn-danger" value="취소">
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
         </div>
-
-        <div>                
-            <label>* 이름</label>
-            <input type="text" id="name" name="name">
-        </div>
-
-        <div>    
-            <label>* 비밀번호</label>
-            <input type="password" id="pw" name="pw">
-        </div>
-
-        <div>    
-            <label>* 비밀번호 확인</label>
-            <input type="password" id="pwCheck" name="pwCheck">
-        </div>
-
-        <div>    
-            <label for="team">*팀</label>
-            <select id="team" name="team">
-                <option value="team1">1</option>
-                <option value="team2">2</option>
-                <option value="team3">3</option>
-            </select>
-        </div>
-
-        <button type="button" class="btn btn-default" onclick="location.href='home.html'">로그인</button>
-        <button type="submit" class="btn btn-primary">등록</button>
-
-    </form>
+    </div>
 </div>
-    
+<div class="modal fade" id="moadlAlert" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-dialog-centered modal-sm" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Alert</h4>
+            </div>
+            <div class="modal-body" id="modalContent">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" style="width: 100px">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
+<script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.5.2/js/bootstrap.min.js}"></script>
+<script th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+<script th:src="@{/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/plugins/jquery-validation/jquery.validate.min.js}"></script>
+<script th:src="@{/plugins/jquery-validation/additional-methods.min.js}"></script>
+<script>
+
+    var duplicatedId = true;
+
+    function searchEmpId() {
+        const empId = document.querySelector("#empId").value;
+
+        $.ajax({
+            url : '/mem/search/empId',
+            data: {empId: empId},
+            dataType: 'json',
+        }).done(function (data) {
+            console.log(data);
+            if(data.isExist === 'OK')  {
+                showAlert("이미 등록된 사번이 존재합니다.");
+                duplicatedId = true;
+            }else {
+                showAlert("등록 가능한 사번입니다.");
+                duplicatedId = false;
+            }
+        }).fail(function(data, textStatus, errorThrown){
+            console.log(textStatus);
+        });
+    }
+    
+    function joinUser() {
+
+        if(duplicatedId) {
+            showAlert("사번 중복체크를 해주십시오.");
+            return false;
+        }
+        if( validPw()) {
+            $('#joinFrm').submit();
+        }
+
+    }
+
+    function validPw() {
+        var pw = $('#empPw').val();
+        var confirmPw = $('#confirmPw').val();
+
+        if(pw != confirmPw) {
+            showAlert('비밀번호가 일치하지 않습니다.');
+            $('#confirmPw').focus();
+            return false;
+        }
+        return true;
+    }
+
+    function showAlert(msg) {
+        $('#moadlAlert').modal('show');
+        $('#modalContent').empty();
+        $('#modalContent').append(msg);
+    }
+
+    function validation() {
+
+        $('#joinFrm').validate({
+            rules: {
+                empId: {
+                    required: true
+                },
+                empPw: {
+                    required: true
+                },
+                confirmPw: {
+                    required: true
+                },
+                empName: {
+                    required: true,
+                },
+                phone :{
+                    required: false,
+                },
+                position: {
+                    required: true,
+                }
+            },
+            messages: {
+                empId: {
+                    required: "사원 ID를 입력하시오."
+                },
+                empPw: {
+                    required: "비밀번호를 입력하시오."
+                },
+                confirmPw: {
+                    required: "비밀번호 확인을 입력하시오."
+                },
+                empName: {
+                    required: "사원이름을 입력하십시오."
+                },
+                position: {
+                    required: "직급을 입력하십시오."
+                }
+
+            },
+            errorElement: 'span',
+            errorPlacement: function (error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).removeClass('is-invalid');
+            }
+        });
+    }
+
+    (function(){
+        validation();
+    })();
+
+</script>
 </html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -13,10 +13,10 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
-    
+
     <style>
         * {font-family: 'Nanum Gothic', sans-serif;}
-        
+
         .navbar {
             background-color: #00aaff;
             border: 1px solid #00aaff;
@@ -32,7 +32,7 @@
             color: white;
         }
 
-        
+
         table {
             width: 100%;
         }
@@ -48,11 +48,6 @@
         .navbar-nav :hover {
             background-color: black;
         }
-
-        .main {
-            /* margin: 10px; */
-        }
-
         .detail {
             overflow: hidden;
             background-color: rgba(185, 183, 183, 0.467);
@@ -67,18 +62,32 @@
 
         .right {
             float: right;
-            padding-bottom: 7px; 
-        }
-
-        section {
-            padding: 20px;
+            padding-bottom: 7px;
         }
 
         .date {
-            padding: 10px 0;
+            padding: 5px 10px;
+        }
+        .main {
+            position: relative;
+        }
+        .map {
+            position: absolute;
         }
 
-      
+        .wrap {position: absolute;left: 0;bottom: 40px;width: 160px;height: 70px;margin-left: -144px;text-align: left;overflow: hidden;font-size: 12px;font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;line-height: 1.5;}
+        .wrap * {padding: 0;margin: 0;}
+        .wrap .info {width: 160px;height: 70px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff;}
+        .wrap .info:nth-child(1) {border: 0;box-shadow: 0px 1px 2px #888;}
+        .info .title {padding: 5px 0 0 10px;height: 30px;background: #eee;border-bottom: 1px solid #ddd;font-size: 10px;font-weight: bold;}
+        .info .close {position: absolute;top: 10px;right: 10px;color: #888;width: 17px;height: 17px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');}
+        .info .close:hover {cursor: pointer;}
+        .info .body {position: relative;overflow: hidden;}
+        .info .desc {position: relative;margin: 13px 0 0 0px;height: 75px;}
+        .desc .ellipsis {overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
+        .desc .jibun {font-size: 11px;color: #888;margin-top: -2px;}
+        .info .img {position: absolute;top: 6px;left: 5px;width: 73px;height: 71px;border: 1px solid #ddd;color: #888;overflow: hidden;}
+
     </style>
 
 
@@ -95,15 +104,15 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="map.html" style="color: white;">SalesMap</a>
+                <a class="navbar-brand" href="/view/map" style="color: white;">SalesMap</a>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
-                    <li><a href="todolist.html"><span style="color: white;">To-Do-List</span></a></li>
-                    <!-- <li><a href="team.html"><span style="color: white;">Team</span></a></li> -->
-                    <li><a href="mywork.html"><span style="color: white;">Mywork</span></a></li>
-                    <li><a href="myinfo.html"><span style="color: white;">MyInfo</span></a></li>
-                    <li><a href="home.html"><span style="color: white;">logout</span></a></li>
+                    <li><a href="/view/team"><span style="color: white;">Team</span></a></li>
+                    <li><a href="/view/todolist"><span style="color: white;">To-Do-List</span></a></li>
+                    <li><a href="/view/mywork"><span style="color: white;">Mywork</span></a></li>
+                    <li><a href="/view/myinfo"><span style="color: white;">MyInfo</span></a></li>
+                    <li><a href="/view/login"><span style="color: white;">logout</span></a></li>
                 </ul>
             </div>
         </div>
@@ -111,181 +120,167 @@
 
     <section>
         <div class="main">
-            <div id="map" style="width:100%;height:600px; "></div>
+            <div class="date">
+                <div class="input-group date">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                    <input type="text" autocomplete="off" class="form-control"
+                           readonly="readonly"  id="timePicker" style="margin-right: 10px;width: 130px" th:value="${nowDate}">
+                    <button type="button" class="btn btn-default btn-sm right" onclick="search();">조회</button>
+                </div>
+            </div>
+            <div class="map" id="map" style="width:100%;height:800px; "></div>
             <div id="clickLatlng"></div>
-        </div>       
+        </div>
     </section>
 
-
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-datepicker.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-datepicker-theme.css}" />
+    <script type="text/javascript" th:src="@{/js/moment/moment.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap-datepicker.js}"></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap-datepicker.ko.js}"></script>
     <script type="text/javascript"
-        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ee3b34b417b65bc0b7697bb57a7714ed"></script>
+            src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ee3b34b417b65bc0b7697bb57a7714ed"></script>
+
+
     <script>
-        // 마커를 표시할 위치와 title 객체 배열입니다 
-        const myLatLng = { lat: "", lng: "" };
-        var positions = new Array();
-        // 주소-좌표 변환 객체를 생성합니다
-        // var geocoder = new kakao.maps.services.Geocoder();
-
-
-        console.log(myLatLng.lat +" / " + myLatLng.lng);
-
-        //  // 위치 정보 성공 함수
-        function coordSuccess(position) {    //첫번째 매개변수의 사용자의 위치 정보
-            myLatLng.lat = position.coords.latitude;
-            myLatLng.lng = position.coords.longitude;
-            console.log(myLatLng.lat, myLatLng.lng)
-        }
-
-        function coordFail(position) {    //첫번째 매개변수의 사용자의 위치 정보
-
-        }
-
-        function initMap() {
-            navigator.geolocation.getCurrentPosition(coordSuccess, coordFail);
-        }
-
-
-
-        var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+        var markers = [];
+        var overlays = []
+        var mapContainer = document.getElementById('map'), // 지도를 표시할 div
             mapOption = {
-                center: new kakao.maps.LatLng(37.51578796247853, 127.09910998428964), // 지도의 중심좌표
-                // center: new kakao.maps.LatLng(myLatLng.lat, myLatLng.lng), // 지도의 중심좌표
-                level: 3 // 지도의 확대 레벨 
+                center: new kakao.maps.LatLng(37.53614901803456, 127.01412285395928), // 지도의 중심좌표
+                level: 8 // 지도의 확대 레벨
             };
 
         var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 
-        // HTML5의 geolocation으로 사용할 수 있는지 확인합니다 
-        if (navigator.geolocation) {
+        // 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
+        var mapTypeControl = new kakao.maps.MapTypeControl();
 
-            // GeoLocation을 이용해서 접속 위치를 얻어옵니다
-            navigator.geolocation.getCurrentPosition(function (position) {
+        // 지도에 컨트롤을 추가해야 지도위에 표시됩니다
+        // kakao.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
+        map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
 
-                myLatLng.lat = position.coords.latitude; // 위도
-                myLatLng.lng = position.coords.longitude; // 경도
+        // 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
+        var zoomControl = new kakao.maps.ZoomControl();
+        map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 
-                var locPosition = new kakao.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
-                    message = '<div style="padding:5px; ">현위치</div>'; // 인포윈도우에 표시될 내용입니다
 
-                // 마커와 인포윈도우를 표시합니다
-                displayMarker(locPosition, message);
-
-            });
-
-        } else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
-
-            var locPosition = new kakao.maps.LatLng(37.51578796247853, 127.09910998428964),
-                message = 'geolocation을 사용할수 없어요..'
-
-            displayMarker(locPosition, message);
-        }
-
-        // 지도에 마커와 인포윈도우를 표시하는 함수입니다
-        function displayMarker(locPosition, message) {
-
+        function addMarker(index, obj) {
             // 마커를 생성합니다
             var marker = new kakao.maps.Marker({
+                position: new kakao.maps.LatLng(obj.y, obj.x)
+            });
+            // 마커가 지도 위에 표시되도록 설정합니다
+            marker.setMap(map);
+
+
+            var content = '<div class="wrap">' +
+                '    <div class="info">' +
+                '        <div class="title">' +
+                obj.placeName +
+                '            <div class="close" onclick="closeOverlay('+index+')" title="닫기"></div>' +
+                '        </div>' +
+                '        <div class="body">' +
+                '            <div class="desc">' +
+                '                <div class="ellipsis">' + obj.roadAddr+ '</div>' +
+                '            </div>' +
+                '        </div>' +
+                '    </div>' +
+                '</div>';
+
+            // 마커에 커서가 오버됐을 때 마커 위에 표시할 인포윈도우를 생성합니다
+            var overlay = new kakao.maps.CustomOverlay({
+                content: content,
                 map: map,
-                position: locPosition
+
+                position: marker.getPosition()
             });
 
-            var iwContent = message, // 인포윈도우에 표시할 내용
-                iwRemoveable = true;
+            overlays.push(overlay);
 
-            // // 인포윈도우를 생성합니다
-            // var infowindow = new kakao.maps.InfoWindow({
-            //     content : iwContent,
-            //     removable : iwRemoveable
-            // });
+            kakao.maps.event.addListener(marker, 'click', function() {
+                overlay.setMap(map);
+            });
 
-            // // 인포윈도우를 마커위에 표시합니다 
-            // infowindow.open(map, marker);
+            // 생성된 마커를 배열에 추가합니다
+            markers.push(marker);
+        }
 
-            // 지도 중심좌표를 접속위치로 변경합니다
-            map.setCenter(locPosition);
+        function initDate() {
+            //datepicker
+            $('#timePicker').datepicker({
+
+                calendarWeeks: false,
+                todayHighlight: true,
+                autoclose: true,
+                setDate: new Date(),
+                maxDate : 0,
+                format: 'yyyy-mm-dd',
+                language: "ko",
+                orientation: "bottom auto",
+                ignoreReadonly: true
+            });
         }
 
 
+        function search() {
+            deleteMakers();
+            closeOverlayAll();
+            getData();
+        }
 
-        // 지도를 클릭한 위치에 표출할 마커입니다
-        var marker = new kakao.maps.Marker({
-            // 지도 중심좌표에 마커를 생성합니다 
-            position: map.getCenter()
-        });
-        // 지도에 마커를 표시합니다
-        marker.setMap(map);
-        
-        // 클릭한 위치에 대한 주소를 표시할 인포윈도우입니다
-        var infowindow = new kakao.maps.InfoWindow({zindex:1});
+        function getData() {
+
+            var toDate = $('#timePicker').val();
+
+            $.ajax({
+                url : '/map/getData',
+                data: {toDate: toDate},
+                dataType: 'json',
+            }).done(function (data) {
+                getMarker(data.workList);
+            }).fail(function(data, textStatus, errorThrown){
+                console.log(textStatus);
+            });
+        }
 
 
-        // 지도에 클릭 이벤트를 등록합니다
-        // 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
-        kakao.maps.event.addListener(map, 'click', function (mouseEvent) {
+        function getMarker(workList) {
 
-            // 클릭한 위도, 경도 정보를 가져옵니다 
-            var latlng = mouseEvent.latLng;
+            $.each(workList, function (index, obj) {
+                addMarker(index, obj);
+            });
+        }
 
-            // 팝업
-
-            var title = prompt("매장 이름을 입력하세요", "");
-
-            console.log(title);
-
-            if (title === "") {
-                alert("매장 이름을 입력하세요.")
-                return;
-
-            } else if (title == null) {
-                return;
-
-            } else {
-
-                var data = [title, latlng];
-
-                positions.push(data);
-
-                // 마커 이미지의 이미지 주소입니다
-                var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
-
-                for (var i = 0; i < positions.length; i++) {
-
-                    // 마커 이미지의 이미지 크기 입니다
-                    var imageSize = new kakao.maps.Size(24, 35);
-
-                    // 마커 이미지를 생성합니다    
-                    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
-
-                    // 마커를 생성합니다
-                    var markerInfo = new kakao.maps.Marker({
-                        map: map, // 마커를 표시할 지도
-                        position: latlng, // 마커를 표시할 위치
-                        title: title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
-                        image: markerImage // 마커 이미지 
-                    });
-
-                }
-
+        function deleteMakers() {
+            for (var i = 0; i < markers.length; i++) {
+                markers[i].setMap(null);
             }
-
-            var message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
-            message += '경도는 ' + latlng.getLng() + ' 입니다';
-
-            var resultDiv = document.getElementById('clickLatlng');
-            resultDiv.innerHTML = message;
-
-            info();
-
-        });
-
-
-        
-        function info() {
-            console.log(positions);
+            markers =[];
         }
 
 
-        
+        // 커스텀 오버레이를 닫기 위해 호출되는 함수입니다
+        function closeOverlay(index) {
+            overlays[index].setMap(null);
+        }
+
+
+        function closeOverlayAll() {
+            for(var i = 0; i < overlays.length; i ++) {
+                overlays[i].setMap(null);
+            }
+            overlays =[];
+        }
+
+
+
+        $(document).ready(function (){
+            initDate();
+            search();
+        });
+
+
 
     </script>
 
