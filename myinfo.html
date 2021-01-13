@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,12 +7,8 @@
         
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
-
-
     <style>
         * {font-family: 'Nanum Gothic', sans-serif;}
         
@@ -20,6 +16,7 @@
             background-color: #00aaff;
             border: 1px solid #00aaff;
             color: white;
+            margin-bottom: 0px;
         }
 
        
@@ -44,7 +41,7 @@
         }
 
         .main {
-            margin: 15px;
+            margin: 10px;
         }
         
         .infoForm {
@@ -82,7 +79,6 @@
         .right button {
             margin-top: 4px;
         }
-
         
 
     </style>
@@ -104,8 +100,8 @@
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
                 	<li><a href="/view/todolist"><span style="color: white;">To-Do-List</span></a></li>
-                    <!-- <li><a href="/view/team"><span style="color: white;">Team</span></a></li> -->
                     <li><a href="/view/mywork"><span style="color: white;">My Work</span></a></li>
+                    <li><a href="/view/team"><span style="color: white;">Team</span></a></li>
                     <li><a href="/view/myinfo"><span style="color: white;">My Info</span></a></li>
                     <li><a href="/view/login"><span style="color: white;">logout</span></a></li>
                     <!-- 
@@ -136,69 +132,135 @@
             
             <div>
                 <div class="date left">
-                    <input type="date" id="lastWeek" class="input-sm"><span>~</span><input type="date" id="currentDate" class="input-sm" />
+                    <div class="input-group date">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                        <input type="text" readonly id="startDate" class="form-control-sm fromDate" th:value="${nowDate}">
+                        <span>~</span>
+                        <input type="text" readonly id="endDate" class="form-control-sm toDate" th:value="${nowDate}" />
+                    </div>
                 </div>
                 <div class="right">
-                    <button type="button" class="btn btn-default btn-sm">조회</button>
+                    <button type="button" class="btn btn-default btn-sm" onclick="search();">조회</button>
                 </div>
             </div>
             
             <table>
-                <tr>
-                    <th>영업일</th>
-                    <th>컨택</th>
-                    <th>소싱</th> 
-                </tr>
-                <tr>
-                    <td>2020-12-01</td>
-                    <td>20건</td>
-                    <td>17건</td>
-                </tr>
-                <tr>
-                    <td>2020-11-30</td>
-                    <td>30건</td>
-                    <td>20건</td>
-                </tr>
-                <tr>
-                    <td>2020-11-29</td>
-                    <td>25건</td>
-                    <td>15건</td>
-                </tr>
+                <thead>
+                    <tr>
+                        <th style="font-weight: bold">영업일</th>
+                        <th style="font-weight: bold">컨택</th>
+                        <th style="font-weight: bold">소싱</th>
+                    </tr>
+                </thead>
+                <tbody id="workBody"></tbody>
             </table>
         </div>
     </section>
 
 
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-datepicker.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-datepicker-theme.css}" />
+    <script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/moment/moment.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap-datepicker.js}"></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap-datepicker.ko.js}"></script>
+
     <script>
-        function getFormatDate(date) {
-            var year = date.getFullYear();
-            var month = (1 + date.getMonth());
-            month = month >= 10 ? month : '0' + month;
-            var day = date.getDate();
-            day = day >= 10 ? day : '0' + day;
-            
-            return year + '-' + month + '-' + day;
+
+        function initDate() {
+            //datepicker
+            $('.fromDate').datepicker({
+                calendarWeeks: false,
+                todayHighlight: true,
+                autoclose: true,
+                format: 'yyyy-mm-dd',
+                language: "ko",
+                orientation: "bottom auto",
+                ignoreReadonly: true,
+                endDate : moment().format('YYYY-MM-DD')
+            });
+
+            $('.toDate').datepicker({
+                calendarWeeks: false,
+                todayHighlight: true,
+                autoclose: true,
+                format: 'yyyy-mm-dd',
+                language: "ko",
+                orientation: "bottom auto",
+                ignoreReadonly: true,
+                endDate : moment().format('YYYY-MM-DD')
+            });
+
+            $('.fromDate').on('change', function (e) {
+                console.log(moment($('.fromDate').val()).format('YYYY-MM-DD'));
+                $('.toDate').datepicker('setStartDate', moment($('.fromDate').val()).format('YYYY-MM-DD'))
+
+            });
         }
 
-        document.getElementById('currentDate').value = getFormatDate(new Date());
+        function getData() {
 
-        function getLastWeek(date) {
-            var weekDate = date.getTime() - (7 * 24 * 60 * 60 * 1000);
-            date.setTime(weekDate);
+            var startDate = $('.fromDate').val();
+            var endDate = $('.toDate').val();
 
-            var year = date.getFullYear();
-            var month = (1 + date.getMonth());
-            month = month >= 10 ? month : '0' + month;
-            var day = date.getDate();
-            day = day >= 10 ? day : '0' + day;
-            
-            return year + '-' + month + '-' + day;
+            var param =  {
+                startDate :startDate,
+                endDate: endDate
+            }
+
+            $.ajax({
+                url : '/myinfo/getData',
+                data: param,
+                dataType: 'json',
+            }).done(function (data) {
+                console.log(data);
+                drawTable(data);
+            }).fail(function(data, textStatus, errorThrown){
+                console.log(textStatus);
+            });
         }
 
-        document.getElementById('lastWeek').value = getLastWeek(new Date());
+        function drawTable(data) {
+            var tbody = $('#workBody');
+            tbody.empty();
+
+            if(data.workList.length  > 0) {
+
+                $.each(data.workList, function (index, obj) {
+                    var tr = $('<tr></tr>');
+                    var td1 = $('<td></td>');
+                    var td2 = $('<td></td>');
+                    var td3 = $('<td></td>');
 
 
-         
+                    td1.append('<span style="font-weight:bold">'  +  obj.toDate + '</span>');
+                    td2.append('<span style="color:blue">' + obj.total + '</span>');
+                    td3.append('<span style="color:red">'+ obj.cnt  + '</span>');
+
+                    tr.append(td1);
+                    tr.append(td2);
+                    tr.append(td3);
+
+                    tbody.append(tr);
+                });
+            }else {
+                var tr = $('<tr></tr>');
+                var td1 = $('<td colspan="3"><span style="color:red">데이터가 없습니다.</span></td>');
+                tr.append(td1);
+                tbody.append(tr);
+            }
+        }
+
+        function search(){
+            getData();
+        }
+
+
+        $(document).ready(function (){
+            initDate();
+            search();
+        })
 
     </script>
 

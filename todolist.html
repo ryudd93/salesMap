@@ -10,11 +10,11 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
-    
-    
+
+
     <style>
         * {font-family: 'Nanum Gothic', sans-serif;}
-        
+
         .navbar {
             background-color: #00aaff;
             border: 1px solid #00aaff;
@@ -28,12 +28,12 @@
         .dropdown-menu li {
             color: white;
         }
-        
+
         table {
             width: 100%;
         }
 
-         th {
+        th {
             padding: 3px;
             text-align: center;
             font-size: small;
@@ -65,7 +65,7 @@
         }
 
         .main {
-            margin: 15px;
+            margin: 10px;
         }
 
         .date {
@@ -88,7 +88,7 @@
             padding: 20px;
         }
         .save {
-        	padding-top: 10px;
+            padding-top: 10px;
         }
     </style>
 
@@ -107,107 +107,99 @@
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
-                	<li><a href="/view/todolist"><span style="color: white;">To-Do-List</span></a></li>
                     <!-- <li><a href="/view/team"><span style="color: white;">Team</span></a></li> -->
-                    <li><a href="/view/mywork"><span style="color: white;">My Work</span></a></li>
-                    <li><a href="/view/myinfo"><span style="color: white;">My Info</span></a></li>
-                    <li><a href="/view/login"><span style="color: white;">logout</span></a></li>
-                    <!-- 
-                    <li><a href="/view/team"><span style="color: white;">Team</span></a></li>
                     <li><a href="/view/todolist"><span style="color: white;">To-Do-List</span></a></li>
                     <li><a href="/view/mywork"><span style="color: white;">Mywork</span></a></li>
                     <li><a href="/view/myinfo"><span style="color: white;">MyInfo</span></a></li>
-                     -->
+                    <li><a href="/view/login"><span style="color: white;">logout</span></a></li>
                 </ul>
             </div>
         </div>
     </nav>
-    
-    
     <section>
-	    <div class="main">
-	        <div>
-	            <h2><strong>To-Do-List</strong></h2>
-	        </div>
-	        <div class="date">
-	            <div class="left">
-	                <div class="input-group date">
-	                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-	                    <input type="text" autocomplete="off" class="form-control" id="timePicker" style="margin-right: 10px;width: 150px" th:value="${nowDate}">
-	                </div>
-	
-	            </div>
-	            <div class="right">
-	                <button type="button" class="btn btn-default btn-sm btnAdd" onclick="tableAdd()">추가</button>
-	                <button type="button" class="btn btn-default btn-sm btnAdd" onclick="deleteTr()">삭제</button>
-	            </div>
-	        </div>
-	        <table class="todoTable" id="todoTable">
-	            <colgroup>
-	                <col width="35%">
-	                <col width="65%">
-	                <col width="5%">
-	            </colgroup>
-	            <thead>
-	                <tr>
-	                    <th>Store</th>
-	                    <th>주소</th>
-	                    <th></th>
-	                </tr>
-	            </thead>
-	            <tbody id="tblShow">
-	                <tr id="tr1">
-	                    <td><input type="text" class="form-control" id="store1" name="store"></td>
-	                    <td>
-	                        <input type="text" class="form-control" placeholder="주소" id="addr1" name ="addr">
-	                        <input type="hidden" class="form-control" placeholder="주소" id="data1" name ="data">
-	                    </td>
-	                    <td>
-	                        <button type="button" class="btn btn-default" onclick="showModal(1)">
-	                            <i class="glyphicon glyphicon-search"></i>
-	                        </button>
-	                    </td>
-	                </tr>
-	                <tr id="tr2">
-	                    <td><input type="text" class="form-control" id="store2" name="store"></td>
-	                    <td>
-	                        <input type="text" class="form-control" placeholder="주소" id="addr2" name ="addr">
-	                        <input type="hidden" class="form-control" placeholder="주소" id="data2" name ="data">
-	                    </td>
-	                    <td>
-	                        <button type="button" class="btn btn-default" onclick="showModal(2)">
-	                            <i class="glyphicon glyphicon-search"></i>
-	                        </button>
-	                    </td>
-	                </tr>
-	            </tbody>
-	        </table>
-	        <div class="right save">
-	            <button type="button" class="btn btn-primary btn-sm" onclick="save()">저장</button>
-	        </div>
-	    </div>
-    </section>
-    
-    <section>
-        <div class="modal fade" id="myModal" role="dialog">
-            <div class="modal-dialog">
-              <!-- Modal content-->
-              <div class="modal-content">
+    <div class="main">
+        <div>
+            <h2><strong>To-Do-List</strong></h2>
+        </div>
+        <div class="date">
+            <div class="left">
+                <div class="input-group date">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                    <input type="text" autocomplete="off" class="form-control" id="timePicker" style="margin-right: 10px;width: 150px" th:value="${nowDate}">
+                </div>
+
+            </div>
+            <div class="right">
+                <button type="button" class="btn btn-default btn-sm btnAdd" onclick="tableAdd()">추가</button>
+                <button type="button" class="btn btn-default btn-sm btnAdd" onclick="deleteTr()">삭제</button>
+            </div>
+        </div>
+        <table class="todoTable" id="todoTable">
+            <colgroup>
+                <col width="35%">
+                <col width="65%">
+                <col width="5%">
+            </colgroup>
+            <thead>
+            <tr>
+                <th>Store</th>
+                <th>주소</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody id="tblShow">
+            <tr id="tr1">
+                <td><input type="text" class="form-control" id="store1" name="store"></td>
+                <td>
+                    <input type="text" class="form-control" placeholder="주소" id="addr1" name ="addr">
+                    <input type="hidden" class="form-control" placeholder="주소" id="data1" name ="data">
+                </td>
+                <td>
+                    <button type="button" class="btn btn-default" onclick="showModal(1)">
+                        <i class="glyphicon glyphicon-search"></i>
+                    </button>
+                </td>
+            </tr>
+            <tr id="tr2">
+                <td><input type="text" class="form-control" id="store2" name="store"></td>
+                <td>
+                    <input type="text" class="form-control" placeholder="주소" id="addr2" name ="addr">
+                    <input type="hidden" class="form-control" placeholder="주소" id="data2" name ="data">
+                </td>
+                <td>
+                    <button type="button" class="btn btn-default" onclick="showModal(2)">
+                        <i class="glyphicon glyphicon-search"></i>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="right save">
+            <button type="button" class="btn btn-primary btn-sm" onclick="save()">저장</button>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
                 <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  <h4 class="modal-title">매장 검색</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">매장 검색</h4>
                 </div>
                 <div class="modal-search">
                     <div class="form-group left">
-                     <!--   <select class="form-control input-sm" id="sel1">
-                          <option>상호명</option>
-                          <option>주소</option>
-                        </select>-->
+                        <!--   <select class="form-control input-sm" id="sel1">
+                             <option>상호명</option>
+                             <option>주소</option>
+                           </select>-->
                     </div>
                     <div class="input-group right">
                         <input type="text" class="form-control" placeholder="Search" name="searchText" id="searchText">
                         <div class="input-group-btn">
-                          <button class="btn btn-default" type="button" onclick="searchAddr();"><i class="glyphicon glyphicon-search"></i></button>
+                            <button class="btn btn-default" type="button" onclick="searchAddr();"><i class="glyphicon glyphicon-search"></i></button>
                         </div>
                     </div>
                 </div>
@@ -229,206 +221,207 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
-              </div>
-            </div>
-        </div>
-    </section>
-    
-    <section>
-        <div class="modal fade" id="moadlAlert" role="dialog">
-            <div class="modal-dialog modal-dialog-centered modal-sm" >
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4>Alert</h4>
-                    </div>
-                    <div class="modal-body alert" id="modalContent">
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="width: 100px">Close</button>
-                    </div>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
-    </section>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-datepicker.css}" />
-    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-datepicker-theme.css}" />
-    <script type="text/javascript" th:src="@{/js/moment/moment.min.js}"></script>
-    <script type="text/javascript" th:src="@{/js/bootstrap-datepicker.js}"></script>
-    <script type="text/javascript" th:src="@{/js/bootstrap-datepicker.ko.js}"></script>
-    <script>
-        var count = 2;
+    </div>
+</section>
 
-        function tableAdd() {
-            var addTable = $('#tblShow');
+<section>
+    <div class="modal fade" id="moadlAlert" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-sm" >
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Alert</h4>
+                </div>
+                <div class="modal-body alert" id="modalContent">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" style="width: 100px">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-datepicker.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-datepicker-theme.css}" />
+<script type="text/javascript" th:src="@{/js/moment/moment.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap-datepicker.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap-datepicker.ko.js}"></script>
+<script>
+    var count = 2;
 
-            if(count == 10) {
-                alert('최대 10개까지만 추가 가능합니다.');
-                return false;
-            }else{
-                var nowCnt = ++count;
-                var tr = $('<tr></tr>');
-                var td1 = $('<td></td>');
-                var td2 = $('<td></td>');
-                var td3 = $('<td></td>');
-                var btn = $('<button></button>')
-                tr.attr('id', 'tr'+count);
+    function tableAdd() {
+        var addTable = $('#tblShow');
 
-                td1.append('<input type="text" class="form-control" id="store'+ count +  '" name="store">')
-                td2.append('<input type="text" class="form-control" id="addr'+ count +  '" name="addr">');
-                td2.append('<input type="hidden" class="form-control" id="data'+ count +  '" name="data">');
+        if(count == 10) {
+            alert('최대 10개까지만 추가 가능합니다.');
+            return false;
+        }else{
+            var nowCnt = ++count;
+            var tr = $('<tr></tr>');
+            var td1 = $('<td></td>');
+            var td2 = $('<td></td>');
+            var td3 = $('<td></td>');
+            var btn = $('<button></button>')
+            tr.attr('id', 'tr'+count);
 
-                btn.attr('type', 'button');
-                btn.addClass('btn btn-default');
-                btn.on('click', function () {
-                    showModal(nowCnt);
-                });
+            td1.append('<input type="text" class="form-control" id="store'+ count +  '" name="store">')
+            td2.append('<input type="text" class="form-control"  placeholder="주소" id="addr'+ count +  '" name="addr">');
+            td2.append('<input type="hidden" class="form-control" id="data'+ count +  '" name="data">');
 
-                btn.append(' <i class="glyphicon glyphicon-search"></i>');
-                td3.append(btn);
-
-                tr.append(td1);
-                tr.append(td2);
-                tr.append(td3);
-                addTable.append(tr);
-            }
-        }
-
-        function showModal(count) {
-            $('#myModal').modal('show');
-
-
-            $('#myModal').on('shown.bs.modal', function () {
-                $('#searchText').val('');
-                $('#addrList').empty();
-                $('#nowCnt').val(count);
-            })
-        }
-
-        function deleteTr(){
-
-            var trCnt = $('#todoTable tbody > tr').length;
-
-            if(trCnt > 2) {
-                $('#todoTable > tbody:last > tr:last').remove();
-                count--;
-            }else {
-                return false;
-            }
-        }
-
-        function searchAddr() {
-            var searchText = $('#searchText').val();
-
-            if($.trim(searchText).length === 0) {
-                showAlert('검색할 대상을 입력하세요.');
-                return false;
-            }
-
-            var param = {
-                type : 'place',
-                query : searchText
-            }
-
-            $.ajax({
-                url : '/map/api/addr',
-                data: param,
-                dataType: 'json',
-            }).done(function (data) {
-                if(data.resultCode == 200)  {
-                        drawAddr(data.list);
-                    }
+            btn.attr('type', 'button');
+            btn.addClass('btn btn-default');
+            btn.on('click', function () {
+                showModal(nowCnt);
             });
 
+            btn.append(' <i class="glyphicon glyphicon-search"></i>');
+            td3.append(btn);
+
+            tr.append(td1);
+            tr.append(td2);
+            tr.append(td3);
+            addTable.append(tr);
+        }
+    }
+
+    function showModal(count) {
+        $('#myModal').modal('show');
+
+
+        $('#myModal').on('shown.bs.modal', function () {
+            $('#searchText').val('');
+            $('#addrList').empty();
+            $('#nowCnt').val(count);
+        })
+    }
+
+    function deleteTr(){
+
+        var trCnt = $('#todoTable tbody > tr').length;
+
+        if(trCnt > 2) {
+            $('#todoTable > tbody:last > tr:last').remove();
+            count--;
+        }else {
+            return false;
+        }
+    }
+
+    function searchAddr() {
+        var searchText = $('#searchText').val();
+
+        if($.trim(searchText).length === 0) {
+            showAlert('검색할 대상을 입력하세요.');
+            return false;
         }
 
-        function drawAddr(list) {
-            var addrBody = $('#addrList');
+        var param = {
+            type : 'place',
+            query : searchText
+        }
 
-            addrBody.empty();
+        $.ajax({
+            url : '/map/api/addr',
+            data: param,
+            dataType: 'json',
+        }).done(function (data) {
+            if(data.resultCode == 200)  {
+                drawAddr(data.list);
+            }
+        });
 
-            $.each(list, function (index, obj) {
-                var tr = $('<tr></tr>');
-                var td1 = $('<td></td>');
-                var td2 = $('<td></td>');
-                var btn = $('<button>'+'선택' +'</button>')
+    }
+
+    function drawAddr(list) {
+        var addrBody = $('#addrList');
+
+        addrBody.empty();
+
+        $.each(list, function (index, obj) {
+            var tr = $('<tr></tr>');
+            var td1 = $('<td></td>');
+            var td2 = $('<td></td>');
+            var btn = $('<button>'+'선택' +'</button>')
 
                 td1.append('<p>상호명 :' + obj.placeName +'</p>');
-                td1.append('<p>주소 : ' + obj.roadAddr +'</p>');
-                td1.append('<p>주소 : ' + obj.phone +'</p>');
+                td1.append('<p>도로명 주소 : ' + obj.roadAddr +'</p>');
+                td1.append('<p>지번 주소 : ' + obj.addr +'</p>');
+                td1.append('<p>전화번호 : ' + obj.phone +'</p>');
 
-                btn.attr('type', 'button');
-                btn.addClass('btn btn-primary right');
-                btn.on('click', function () {
-                    selectAddr(obj);
-                });
-
-                td2.append(btn);
-
-                tr.append(td1);
-                tr.append(td2);
-
-                addrBody.append(tr);
-            });
-        }
-
-        function selectAddr(obj){
-            console.log(obj);
-            var   nowCnt = $('#nowCnt').val();
-
-            $('#store' + nowCnt).val(obj.placeName);
-            $('#addr' + nowCnt).val(obj.roadAddr);
-            $('#data' + nowCnt).val(JSON.stringify(obj));
-
-            $('#myModal').modal("hide"); //닫기
-
-        }
-
-        function showAlert(msg) {
-            $('#moadlAlert').modal('show');
-            $('#modalContent').empty();
-            $('#modalContent').append(msg);
-        }
-
-
-
-        function initDate() {
-            //datepicker
-            $('#timePicker').datepicker({
-
-                calendarWeeks: false,
-                todayHighlight: true,
-                autoclose: true,
-                setDate: new Date(),
-                maxDate : 0,
-                format: 'yyyy-mm-dd',
-                language: "ko",
-                orientation: "bottom auto"
-            });
-        }
-
-
-        function save () {
-            var dataArr = [];
-
-            $.each($('input[name="data"]'), function (index, obj) {
-                if($.trim(obj.value).length  > 0) {
-                    dataArr.push( JSON.parse(obj.value));
-                }
+            btn.attr('type', 'button');
+            btn.addClass('btn btn-primary right');
+            btn.on('click', function () {
+                selectAddr(obj);
             });
 
-            if(dataArr.length == 0) {
-                showAlert('작성된 주소가 없습니다.');
-                return false;
+            td2.append(btn);
+
+            tr.append(td1);
+            tr.append(td2);
+
+            addrBody.append(tr);
+        });
+    }
+
+    function selectAddr(obj){
+        console.log(obj);
+        var   nowCnt = $('#nowCnt').val();
+
+        $('#store' + nowCnt).val(obj.placeName);
+        $('#addr' + nowCnt).val(obj.roadAddr);
+        $('#data' + nowCnt).val(JSON.stringify(obj));
+
+        $('#myModal').modal("hide"); //닫기
+
+    }
+
+    function showAlert(msg) {
+        $('#moadlAlert').modal('show');
+        $('#modalContent').empty();
+        $('#modalContent').append(msg);
+    }
+
+
+
+    function initDate() {
+        //datepicker
+        $('#timePicker').datepicker({
+
+            calendarWeeks: false,
+            todayHighlight: true,
+            autoclose: true,
+            setDate: new Date(),
+            maxDate : 0,
+            format: 'yyyy-mm-dd',
+            language: "ko",
+            orientation: "bottom auto"
+        });
+    }
+
+
+    function save () {
+        var dataArr = [];
+
+        $.each($('input[name="data"]'), function (index, obj) {
+            if($.trim(obj.value).length  > 0) {
+                dataArr.push( JSON.parse(obj.value));
             }
+        });
 
-            var param = {
-                nowDate : $('#timePicker').val(),
-                dataList : JSON.stringify(dataArr)
-            }
+        if(dataArr.length == 0) {
+            showAlert('작성된 주소가 없습니다.');
+            return false;
+        }
 
-            console.log(param);
+        var param = {
+            nowDate : $('#timePicker').val(),
+            dataList : JSON.stringify(dataArr)
+        }
+
+        console.log(param);
 
             $.ajax({
                 url : '/save/todo',
@@ -437,10 +430,16 @@
                 dataType: 'json',
             }).done(function (data) {
                 if(data.resultCode == 200)  {
-                    drawAddr(data.list);
+                   alert('등록되었습니다.')
+                    location.reload();
+                }else {
+                    alert('등록이 실패했습니다.');
+                    return false;
                 }
+            }).fail(function(data, textStatus, errorThrown){
+                console.log("fail in get addr");
+                console.log(data);
             });
-
         }
 
         $(document).ready(function () {

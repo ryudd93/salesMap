@@ -1,14 +1,16 @@
 <!DOCTYPE html>
-<html lang="en"  xmlns:th="http://www.thymeleaf.org">>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SalesMap</title>
 
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.2/css/bootstrap.min.css}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
 
     <style>
-        * {padding: 0; margin: 0;}
+        * {padding: 0; margin: 0; font-family: 'Nanum Gothic', sans-serif;}
 
         body {
             background-color: #f2f2f2;
@@ -35,6 +37,11 @@
         table {
             font-size: small;
         }
+        .checkId {
+            width: 70px;
+            height: 37px;
+            font-size: 1em;
+        }
 
 
     </style>
@@ -46,7 +53,7 @@
         <div class="col-sm-12 text-center" >
             <div class="col-sm-3"></div>
             <div class="col-sm-6">
-                <h2>회원가입</h2>
+                <h2><strong>회원가입</strong></h2>
                 <form action="/mem/register" method="post" id="joinFrm">
                     <table class="table table-boardered">
                         <tr>
@@ -60,7 +67,7 @@
                                             <input type="text" class="form-control" id="empId" name="empId">
                                         </div>
                                         <div class="col-4 col-md-4 col-sm-4 col-xs-4" style="text-align: left; padding: 0px 0px 0px 0px">
-                                            <input type="button" class="btn btn-success" onclick="searchEmpId();" value="사번조회" />
+                                            <input type="button" class="btn btn-success btn-sm checkId" onclick="searchEmpId();" value="사번조회" />
                                         </div>
                                     </div>
                                 </div>
@@ -76,7 +83,7 @@
                         </tr>
                         <tr>
                             <th style="padding-top: 15px">
-                                <span style="color:red">*</span>비밀번호 확인
+                                <span style="color:red">*</span>비밀번호확인
                             </th>
                             <td>
                                 <div class="form-group">

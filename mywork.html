@@ -45,7 +45,7 @@
         }
 
         .main {
-            margin: 15px;
+            margin: 10px;
         }
 
         .detail {
@@ -55,6 +55,7 @@
             padding: 10px 5px;
             line-height: 0.5em;
         }
+
         .left {
             float: left;
         }
@@ -68,9 +69,6 @@
         }
         .date {
             padding-top: 20px;
-            /* width: 30px;
-            display: inline;
-            overflow: hidden; */
         }
     </style>
 
@@ -89,8 +87,8 @@
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
-                	<li><a href="/view/todolist"><span style="color: white;">To-Do-List</span></a></li>
                     <!-- <li><a href="/view/team"><span style="color: white;">Team</span></a></li> -->
+                	<li><a href="/view/todolist"><span style="color: white;">To-Do-List</span></a></li>
                     <li><a href="/view/mywork"><span style="color: white;">My Work</span></a></li>
                     <li><a href="/view/myinfo"><span style="color: white;">My Info</span></a></li>
                     <li><a href="/view/login"><span style="color: white;">logout</span></a></li>
@@ -113,9 +111,10 @@
                     <div class="input-group date">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                         <input type="text" autocomplete="off" class="form-control"
-                               readonly="readonly"  id="timePicker" style="margin-right: 10px;width: 105px" th:value="${nowDate}">
+                               readonly="readonly"  id="timePicker" style="margin-right: 10px;width: 130px" th:value="${nowDate}">
+                        <button type="button" class="btn btn-default btn-sm right" onclick="search();">조회</button>
                     </div>
-                    <!-- <button type="button" class="btn btn-default btn-sm">조회</button> -->
+
                     <div class="right">
                         <table style="display: inline;">
                             <tr>
@@ -142,10 +141,6 @@
                         </tr>
                     </thead>
                     <tbody id="dataBody">
-                        <tr>
-                            <td><button type="button" id="modifyBtn" class="btn btn-primary btn-sm">수정</button></td>
-                            <td><button type="button" class="btn btn-danger btn-sm">삭제</button></td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -215,7 +210,7 @@
             });
         }
 
-        function getDate() {
+        function getData() {
 
             var toDate = $('#timePicker').val();
 
@@ -239,43 +234,51 @@
 
             tbody.empty();
 
-            $.each(data.workList, function(index, obj) {
+            if(data.workList.length  > 0) {
+
+                $.each(data.workList, function (index, obj) {
+                    var tr = $('<tr></tr>');
+                    var td1 = $('<td></td>');
+                    var td2 = $('<td></td>');
+                    var td3 = $('<td></td>');
+                    var td4 = $('<td></td>');
+                    var td5 = $('<td></td>');
+                    var modifyBtn = $('<button>수정</button>')
+                    var delBtn = $('<button>삭제</button>')
+
+                    modifyBtn.attr('type', 'button');
+                    modifyBtn.addClass('btn btn-primary btn-sm');
+                    modifyBtn.on('click', function () {
+                        showModal(obj.storeId, obj.statusNo, obj.storeNo);
+                    });
+
+                    delBtn.attr('type', 'button');
+                    delBtn.addClass('btn btn-danger btn-sm');
+                    delBtn.on('click', function () {
+                        delWork(obj.storeNo);
+                    });
+
+                    td1.append(obj.storeId);
+                    td2.append(obj.placeName);
+                    td3.append(obj.statusName);
+                    td4.append(modifyBtn);
+                    td5.append(delBtn);
+
+                    tr.append(td1);
+                    tr.append(td2);
+                    tr.append(td3);
+                    tr.append(td4);
+                    tr.append(td5);
+
+                    tbody.append(tr);
+                });
+            }else {
                 var tr = $('<tr></tr>');
-                var td1 = $('<td></td>');
-                var td2 = $('<td></td>');
-                var td3 = $('<td></td>');
-                var td4 = $('<td></td>');
-                var td5 = $('<td></td>');
-                var modifyBtn = $('<button>수정</button>')
-                var delBtn = $('<button>삭제</button>')
-
-                modifyBtn.attr('type', 'button');
-                modifyBtn.addClass('btn btn-primary btn-sm');
-                modifyBtn.on('click', function () {
-                    showModal(obj.storeId, obj.statusNo, obj.storeNo);
-                });
-
-                delBtn.attr('type', 'button');
-                delBtn.addClass('btn btn-danger btn-sm');
-                delBtn.on('click', function () {
-                    delWork(obj.storeNo);
-                });
-
-                td1.append(obj.storeId);
-                td2.append(obj.placeName);
-                td3.append(obj.statusName);
-                td4.append(modifyBtn);
-
+                var td1 = $('<td colspan="5"><span style="color:red">데이터가 없습니다.</span></td>');
                 tr.append(td1);
-                tr.append(td2);
-                tr.append(td3);
-                tr.append(td4);
-
                 tbody.append(tr);
-            });
-
+            }
         }
-
 
         function makeSelect(index, codeList, data) {
             var id = 'stat' + data.storeNo;
@@ -296,6 +299,10 @@
 
             console.log(select);
             return select;
+        }
+
+        function  search(){
+            getData();
         }
 
         function showModal(storeId, statusNo, storeNo) {
@@ -327,11 +334,11 @@
             }).done(function (data) {
                 if(data.resultCode == 200)  {
                     alert('수정되었습니다.')
-                    location.reload();
+                    search();
                 }else {
                     alert('수정이 실패했습니다.');
-                    return false;
                 }
+                $('#modify').modal('hide');
             }).fail(function(data, textStatus, errorThrown){
                 console.log(textStatus);
             });
@@ -350,7 +357,7 @@
                 }).done(function (data) {
                     if(data.resultCode == 200)  {
                         alert('삭제 되었습니다.')
-                        location.reload();
+                        search();
                     }else {
                         alert('삭제가 실패했습니다.');
                         return false;
@@ -363,7 +370,7 @@
 
         $(document).ready(function () {
             initDate();
-            getDate();
+            getData();
 
 
         });
